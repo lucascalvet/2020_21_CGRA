@@ -18,7 +18,7 @@ export class MyInterface extends CGFinterface {
         this.gui = new dat.GUI();
 
         //This enlarges the GUI to fit the bigger names
-        this.gui.width = 300;
+        this.gui.width = 305;
 
         //Checkbox element in GUI
         this.gui.add(this.scene, 'displayAxis').name('Display Axis');
