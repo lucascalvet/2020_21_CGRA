@@ -1,5 +1,5 @@
 import { CGFscene, CGFcamera, CGFaxis } from "../lib/CGF.js";
-import { MyTangram } from "./MyTrangram.js";
+import { MyTangram } from "./MyTangram.js";
 
 /**
  * MyScene
