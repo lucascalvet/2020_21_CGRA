@@ -1,6 +1,7 @@
 import { CGFscene, CGFcamera, CGFaxis } from "../lib/CGF.js";
 import { MyTangram } from "./MyTangram.js";
 import { MyUnitCube } from "./MyUnitCube.js";
+import { MyUnitCubeQuad } from "./MyUnitCubeQuad.js"
 
 /**
  * MyScene
@@ -13,7 +14,7 @@ export class MyScene extends CGFscene {
 
   init(application) {
     super.init(application);
-    
+
     this.initCameras();
     this.initLights();
 
@@ -29,12 +30,15 @@ export class MyScene extends CGFscene {
     this.axis = new CGFaxis(this);
     this.tangram = new MyTangram(this);
     this.unitcube = new MyUnitCube(this);
+    this.unitcubequad = new MyUnitCubeQuad(this);
 
     //Objects connected to MyInterface
     this.displayAxis = true;
     this.scaleFactor = 1;
     this.displayTangram = true;
     this.displayUnitCube = true;
+    this.displayUnitCubeQuad = false;
+
   }
   initLights() {
     this.lights[0].setPosition(15, 2, 5, 1);
@@ -93,23 +97,25 @@ export class MyScene extends CGFscene {
     ];
 
     this.multMatrix(sca);
-    
+
     // ---- BEGIN Primitive drawing section
-    
-    //Transformações para o exercício 3 - 5
+
+    //Transformações para o exercício 3.5 e 4.3
     this.pushMatrix();
-    this.translate(Math.sqrt(10.125)+0.1, 0, Math.sqrt(10.125)+0.9);
-    this.rotate(-Math.PI/2, 1, 0, 0);
+    this.translate(Math.sqrt(10.125) + 0.1, 0, Math.sqrt(10.125) + 0.9);
+    this.rotate(-Math.PI / 2, 1, 0, 0);
     if (this.displayTangram) this.tangram.display();
     this.popMatrix();
 
     this.pushMatrix();
-    this.scale(7.75,1,7.75);
+    this.scale(7.75, 1, 7.75);
     this.translate(0.5, -0.5, 0.5);
     if (this.displayUnitCube) this.unitcube.display();
+    this.translate(0, -0.1, 0);
+    if (this.displayUnitCubeQuad) this.unitcubequad.display();
     this.popMatrix();
-    
-    
+
+
     // ---- END Primitive drawing section
   }
 }
