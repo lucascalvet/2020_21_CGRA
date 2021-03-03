@@ -34,9 +34,9 @@
 
 ### Exercices
 
-- In exercise 1 we observed X
-- In exercise 2 we had difficulties in Y
-- In exercise 3 we observed X
-- In exercise 4 we had difficulties in Y
-- In exercise 5 we observed X
-- In exercise 6 we had difficulties in Y
+- In exercise 3 we had some issues with defining the normals (mainly in the UnitCube Object) that after reviewing we were to able to fix.
+
+- In the other exercises we had no major difficulties.
+
+#### Note - hextoRgbA
+ - In order to pick the colors in a more accurate way we used the hextoRgbA function defined on MyScene. 
