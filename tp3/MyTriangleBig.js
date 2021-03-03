@@ -15,6 +15,9 @@ export class MyTriangleBig extends CGFobject {
 			-2, 0, 0,	//0
 			2, 0, 0,	//1
 			0, 2, 0,	//2
+			-2, 0, 0,	//0b
+			2, 0, 0,	//1b
+			0, 2, 0,	//2b
 		];
 
 		//Counter-clockwise reference of vertices
@@ -23,6 +26,15 @@ export class MyTriangleBig extends CGFobject {
 			2, 1, 0
 		];
 
+		this.normals = [
+			0, 0, 1,	//0
+			0, 0, 1,	//1
+			0, 0, 1, 	//2
+			0, 0, -1,	//0b
+			0, 0, -1,	//1b
+			0, 0, -1 	//2b
+		];
+		
 		//The defined indices (and corresponding vertices)
 		//will be read in groups of three to draw triangles
 		this.primitiveType = this.scene.gl.TRIANGLES;

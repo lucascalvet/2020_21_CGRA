@@ -32,6 +32,8 @@ export class MyInterface extends CGFinterface {
 
         this.gui.add(this.scene, 'selectedMaterial', this.scene.materialIDs).name('Selected Material');
 
+        this.gui.add(this.scene, 'diamondCustom').name("DiamondT CustomM")
+
         this.gui.add(this.scene, 'ambLight', 0, 1).name('AmbLight')
 
         // a folder for grouping parameters for one of the lights

@@ -16,6 +16,10 @@ export class MyParallelogram extends CGFobject {
 			1, 1, 0,	//1
 			2, 0, 0,	//2
             3, 1, 0,	//3
+			0, 0, 0,	//0b
+			1, 1, 0,	//1b
+			2, 0, 0,	//2b
+            3, 1, 0		//3b
 		];
 
 		//Counter-clockwise reference of vertices
@@ -24,6 +28,17 @@ export class MyParallelogram extends CGFobject {
             0, 1, 2,
             1, 2, 3,
             3, 2, 1
+		];
+
+		this.normals = [
+			0, 0, 1,	//0
+			0, 0, 1,	//1
+			0, 0, 1,	//2
+			0, 0, 1,	//3
+			0, 0, -1,	//0b
+			0, 0, -1,	//1b
+			0, 0, -1,	//2b
+            0, 0, -1	//3b
 		];
 
 		//The defined indices (and corresponding vertices)
