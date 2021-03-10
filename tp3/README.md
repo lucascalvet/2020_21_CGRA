@@ -1,6 +1,6 @@
 # CGRA 2020/2021
 
-## Group T0xG0y
+## Group T03G05
 
 ## TP 3 Notes
 
