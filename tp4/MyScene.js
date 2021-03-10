@@ -1,6 +1,7 @@
 import { CGFscene, CGFcamera, CGFaxis, CGFappearance, CGFtexture } from "../lib/CGF.js";
 import { MyQuad } from "./MyQuad.js";
 import { MyTangram } from "./MyTangram.js";
+import { MyUnitCubeQuad } from "./MyUnitCubeQuad.js";
 
 /**
  * MyScene
@@ -29,6 +30,12 @@ export class MyScene extends CGFscene {
         this.axis = new CGFaxis(this);
         this.quad = new MyQuad(this);
         this.tangram = new MyTangram(this);
+
+        this.texSideCube = new CGFtexture(this, 'images/mineSide.png');
+        this.texTopCube = new CGFtexture(this, 'images/mineTop.png');
+        this.texBottomCube = new CGFtexture(this, 'images/mineBottom.png');
+
+        this.cubeQuad = new MyUnitCubeQuad(this, this.texTopCube, this.texSideCube, this.texSideCube, this.texSideCube, this.texSideCube, this.texBottomCube); 
 
         //------ Applied Material
         this.quadMaterial = new CGFappearance(this);
@@ -62,7 +69,9 @@ export class MyScene extends CGFscene {
         this.wrappingT = { 'Repeat': 0, 'Clamp to edge': 1, 'Mirrored repeat': 2 };
 
         this.displayMyQuad = false;
-        this.displayTangram = true;
+        this.displayTangram = false;
+        this.displayMyCubeQuad = false;
+        this.useNearest = false;
     }
 
     initLights() {
@@ -129,11 +138,16 @@ export class MyScene extends CGFscene {
             this.tangram.display();
         }
 
+        if(this.displayMyCubeQuad) {
+            this.cubeQuad.display();
+        }
+
         // Default texture filtering in WebCGF is LINEAR. 
         // Uncomment next line for NEAREST when magnifying, or 
         // add a checkbox in the GUI to alternate in real time
-
-        // this.gl.texParameteri(this.gl.TEXTURE_2D, this.gl.TEXTURE_MAG_FILTER, this.gl.NEAREST);
+        
+        if(this.useNearest) this.gl.texParameteri(this.gl.TEXTURE_2D, this.gl.TEXTURE_MAG_FILTER, this.gl.NEAREST);
+        else this.gl.texParameteri(this.gl.TEXTURE_2D, this.gl.TEXTURE_MAG_FILTER, this.gl.LINEAR);
 
         // ---- END Primitive drawing section
     }

@@ -46,6 +46,11 @@ export class MyInterface extends CGFinterface {
         this.gui.add(this.scene, 'displayMyQuad').name('Display MyQuad');
         //Display Tangram
         this.gui.add(this.scene, 'displayTangram').name('Display Tangram (26)');
+        //Display MyCubeQuad
+        this.gui.add(this.scene, 'displayMyCubeQuad').name('Display CubeQuad');
+        //Use Nearest Neighbour Interpolation
+        this.gui.add(this.scene, 'useNearest').name('Use Nearest Interp.');
+        this.useNearest
 
         return true;
     }

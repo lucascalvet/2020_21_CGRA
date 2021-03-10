@@ -12,4 +12,4 @@ We also "discovered" that with the floor texture in diferent "wraps" (Repeat & M
 ### Exercises
 
 - In exercise 1-3 we were able to easily map the texture coordinates to the corresponding shapes. For the object that were used twice (TriangleBig & TriangleSmall) we had to add a new argument with the texture coordinates (an array) to their constructors enabling different textures to equal shapes.
-- In exercise 4-7 we had difficulties in Y
+- In exercise 4-7 we had difficulties in implement the Nearest Neighbour Interpolation filter option in the top and bottom faces of the UnitCubeQuad solid. We were able to complete the rest of the exercises with the help of the WebCGF Documentation provided in the Moodle UP CGRA Page.
