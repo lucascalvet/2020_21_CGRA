@@ -19,6 +19,9 @@ export class MyInterface extends CGFinterface {
         
         var obj = this;
 
+        //This enlarges the GUI to fit the bigger names
+        this.gui.width = 255;
+
         //Checkbox element in GUI
         this.gui.add(this.scene, 'displayAxis').name('Display Axis');
 

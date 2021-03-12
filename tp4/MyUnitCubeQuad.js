@@ -34,6 +34,9 @@ export class MyUnitCubeQuad extends CGFobject {
 
     display() {
         //Face Frente
+        if(this.scene.useNearest) this.scene.gl.texParameteri(this.scene.gl.TEXTURE_2D, this.scene.gl.TEXTURE_MAG_FILTER, this.scene.gl.NEAREST);
+        else this.scene.gl.texParameteri(this.scene.gl.TEXTURE_2D, this.scene.gl.TEXTURE_MAG_FILTER, this.scene.gl.LINEAR);
+
         if (this.scene.quadFTex !== 'undefined')
             this.scene.CquadMaterial.setTexture(this.scene.quadFText);
         else
@@ -45,6 +48,9 @@ export class MyUnitCubeQuad extends CGFobject {
         this.scene.popMatrix();
 
         //Face Baixo
+        if(this.scene.useNearest) this.scene.gl.texParameteri(this.scene.gl.TEXTURE_2D, this.scene.gl.TEXTURE_MAG_FILTER, this.scene.gl.NEAREST);
+        else this.scene.gl.texParameteri(this.scene.gl.TEXTURE_2D, this.scene.gl.TEXTURE_MAG_FILTER, this.scene.gl.LINEAR);
+
         if (this.scene.quadBTText !== 'undefined')
             this.scene.CquadMaterial.setTexture(this.scene.quadBTText);
         else
@@ -57,6 +63,9 @@ export class MyUnitCubeQuad extends CGFobject {
         this.scene.popMatrix();
 
         //Face Esquerda
+        if(this.scene.useNearest) this.scene.gl.texParameteri(this.scene.gl.TEXTURE_2D, this.scene.gl.TEXTURE_MAG_FILTER, this.scene.gl.NEAREST);
+        else this.scene.gl.texParameteri(this.scene.gl.TEXTURE_2D, this.scene.gl.TEXTURE_MAG_FILTER, this.scene.gl.LINEAR);
+        
         if (this.scene.quadLText !== 'undefined')
             this.scene.CquadMaterial.setTexture(this.scene.quadLText);
         else
@@ -69,6 +78,9 @@ export class MyUnitCubeQuad extends CGFobject {
         this.scene.popMatrix();
 
         //Face Trás
+        if(this.scene.useNearest) this.scene.gl.texParameteri(this.scene.gl.TEXTURE_2D, this.scene.gl.TEXTURE_MAG_FILTER, this.scene.gl.NEAREST);
+        else this.scene.gl.texParameteri(this.scene.gl.TEXTURE_2D, this.scene.gl.TEXTURE_MAG_FILTER, this.scene.gl.LINEAR);
+        
         if (this.scene.quadBKText !== 'undefined')
             this.scene.CquadMaterial.setTexture(this.scene.quadBKText);
         else
@@ -81,6 +93,8 @@ export class MyUnitCubeQuad extends CGFobject {
         this.scene.popMatrix();
 
         //Face Cima
+        if(this.scene.useNearest) this.scene.gl.texParameteri(this.scene.gl.TEXTURE_2D, this.scene.gl.TEXTURE_MAG_FILTER, this.scene.gl.NEAREST);
+        else this.scene.gl.texParameteri(this.scene.gl.TEXTURE_2D, this.scene.gl.TEXTURE_MAG_FILTER, this.scene.gl.LINEAR);
         if (this.scene.quadTText !== 'undefined')
             this.scene.CquadMaterial.setTexture(this.scene.quadTText);
         else
@@ -93,6 +107,9 @@ export class MyUnitCubeQuad extends CGFobject {
         this.scene.popMatrix();
 
         //Face Direita
+        if(this.scene.useNearest) this.scene.gl.texParameteri(this.scene.gl.TEXTURE_2D, this.scene.gl.TEXTURE_MAG_FILTER, this.scene.gl.NEAREST);
+        else this.scene.gl.texParameteri(this.scene.gl.TEXTURE_2D, this.scene.gl.TEXTURE_MAG_FILTER, this.scene.gl.LINEAR);
+
         if (this.scene.quadRText !== 'undefined')
             this.scene.CquadMaterial.setTexture(this.scene.quadRText);
         else
