@@ -88,7 +88,10 @@ export class ShaderScene extends CGFscene {
 			new CGFshader(this.gl, "shaders/texture3.vert", "shaders/texture3.frag"),
 			new CGFshader(this.gl, "shaders/texture3anim.vert", "shaders/texture3anim.frag"),
 			new CGFshader(this.gl, "shaders/texture1.vert", "shaders/sepia.frag"),
-			new CGFshader(this.gl, "shaders/texture1.vert", "shaders/convolution.frag")
+			new CGFshader(this.gl, "shaders/texture1.vert", "shaders/convolution.frag"),
+			new CGFshader(this.gl, "shaders/yellowblue.vert", "shaders/yellowblue.frag"),
+			new CGFshader(this.gl, "shaders/YBanim.vert", "shaders/YBanim.frag"),
+			new CGFshader(this.gl, "shaders/texture1.vert", "shaders/grayscale.frag")
 		];
 
 		// additional texture will have to be bound to texture unit 1 later, when using the shader, with "this.texture2.bind(1);"
@@ -109,7 +112,10 @@ export class ShaderScene extends CGFscene {
 			'Multiple textures in VS and FS': 5,
 			'Animation example': 6,
 			'Sepia': 7,
-			'Convolution': 8
+			'Convolution': 8,
+			'Yellow Blue Ex 1.1' : 9,
+			'Yellow Blue Anim Ex 1.2' : 10,
+			'Grayscale Ex 1.3' : 11
 		};
 
 		// shader code panels references
@@ -195,6 +201,8 @@ export class ShaderScene extends CGFscene {
 			// Doing the modulus (%) by 100 makes the timeFactor loop between 0 and 99
 			// ( so the loop period of timeFactor is 100 times 100 ms = 10s ; the actual animation loop depends on how timeFactor is used in the shader )
 			this.testShaders[6].setUniformsValues({ timeFactor: t / 100 % 100 });
+		if (this.selectedExampleShader == 10)
+			this.testShaders[10].setUniformsValues({ timeFactor: t / 100 % 100 });
 	}
 
 	// main display function

@@ -4,7 +4,9 @@
 
 ## TP 5 Notes
 
-(add your main observations/remarks about your experiments here, in a bulleted list, and remove this line. Some examples below)
+### Experiments
 
-- In exercise 1 we observed X
-- In exercise 2 we had difficulties in Y
+We managed to observe without any issue all the proposed experiments.
+### Exercises
+
+- In the Teapot Exercises we realised the importance of using the right type of variables (uniform, varying, vec4 and vec3) in order to obtain the end result we wanted. We also saw the effect that shaders can have on the MyScene objects.
