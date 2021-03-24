@@ -77,6 +77,11 @@ export class ShaderScene extends CGFscene {
 
 		this.texture2 = new CGFtexture(this, "textures/FEUP.jpg");
 
+
+		this.texture3 = new CGFtexture(this, "textures/waterTex.jpg");
+		this.texture4 = new CGFtexture(this, "textures/waterMap.jpg");
+
+	
 		// shaders initialization
 
 		this.testShaders = [
@@ -91,7 +96,8 @@ export class ShaderScene extends CGFscene {
 			new CGFshader(this.gl, "shaders/texture1.vert", "shaders/convolution.frag"),
 			new CGFshader(this.gl, "shaders/yellowblue.vert", "shaders/yellowblue.frag"),
 			new CGFshader(this.gl, "shaders/YBanim.vert", "shaders/YBanim.frag"),
-			new CGFshader(this.gl, "shaders/texture1.vert", "shaders/grayscale.frag")
+			new CGFshader(this.gl, "shaders/texture1.vert", "shaders/grayscale.frag"),
+			new CGFshader(this.gl, "shaders/water.vert", "shaders/water.frag")
 		];
 
 		// additional texture will have to be bound to texture unit 1 later, when using the shader, with "this.texture2.bind(1);"
@@ -99,6 +105,8 @@ export class ShaderScene extends CGFscene {
 		this.testShaders[5].setUniformsValues({ uSampler2: 1 });
 		this.testShaders[6].setUniformsValues({ uSampler2: 1 });
 		this.testShaders[6].setUniformsValues({ timeFactor: 0 });
+
+		this.testShaders[12].setUniformsValues({ uSampler3: 2 , uSampler4: 3, timeFactor: 0});
 
 
 		// Shaders interface variables
@@ -115,7 +123,8 @@ export class ShaderScene extends CGFscene {
 			'Convolution': 8,
 			'Yellow Blue Ex 1.1' : 9,
 			'Yellow Blue Anim Ex 1.2' : 10,
-			'Grayscale Ex 1.3' : 11
+			'Grayscale Ex 1.3' : 11,
+			'Water Ex 2' : 12
 		};
 
 		// shader code panels references
@@ -203,6 +212,8 @@ export class ShaderScene extends CGFscene {
 			this.testShaders[6].setUniformsValues({ timeFactor: t / 100 % 100 });
 		if (this.selectedExampleShader == 10)
 			this.testShaders[10].setUniformsValues({ timeFactor: t / 100 % 100 });
+		if (this.selectedExampleShader == 12)
+			this.testShaders[12].setUniformsValues({ timeFactor: t / 100 % 100 });
 	}
 
 	// main display function
@@ -224,9 +235,9 @@ export class ShaderScene extends CGFscene {
 
 		// Draw axis
 		this.axis.display();
-
+		
 		// aplly main appearance (including texture in default texture unit 0)
-		this.appearance.apply();
+		 this.appearance.apply();
 
 		// activate selected shader
 		this.setActiveShader(this.testShaders[this.selectedExampleShader]);
@@ -234,6 +245,9 @@ export class ShaderScene extends CGFscene {
 
 		// bind additional texture to texture unit 1
 		this.texture2.bind(1);
+		
+		this.texture3.bind(2);
+		this.texture4.bind(3);
 
 		if (this.selectedObject==0) {
 			// teapot (scaled and rotated to conform to our axis)
