@@ -21,6 +21,9 @@ export class MyInterface extends CGFinterface {
         //Checkbox element in GUI
         this.gui.add(this.scene, 'displayAxis').name('Display Axis');
 
+        //Dropdown for textures
+        this.gui.add(this.scene, 'selectedTexture', this.scene.skyBoxTexture).name('SkyBox Texture');
+
         this.initKeys();
         return true;
     }

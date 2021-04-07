@@ -1,6 +1,7 @@
-import { CGFscene, CGFcamera, CGFaxis, CGFappearance } from "../lib/CGF.js";
+import { CGFscene, CGFcamera, CGFaxis, CGFappearance, CGFtexture } from "../lib/CGF.js";
 import { MySphere } from "./MySphere.js";
 import { MyMovingObject } from "./MyMovingObject.js";
+import { MyCubeMap } from "./MyCubeMap.js";
 
 /**
 * MyScene
@@ -32,6 +33,22 @@ export class MyScene extends CGFscene {
         this.incompleteSphere = new MySphere(this, 16, 8);
         this.movingObject = new MyMovingObject(this);
 
+        this.texBackCube = new CGFtexture(this, 'images/test_cubemap/nz.png');
+        this.texBottomCube = new CGFtexture(this, 'images/test_cubemap/ny.png');
+        this.texFrontCube = new CGFtexture(this, 'images/test_cubemap/pz.png');
+        this.texLeftCube = new CGFtexture(this, 'images/test_cubemap/nx.png');
+        this.texRightCube = new CGFtexture(this, 'images/test_cubemap/px.png');
+        this.texTopCube = new CGFtexture(this, 'images/test_cubemap/py.png');
+
+        this.texBackCubeD = new CGFtexture(this, 'images/demo_cubemap/front.png');
+        this.texBottomCubeD = new CGFtexture(this, 'images/demo_cubemap/bottom.png');
+        this.texFrontCubeD = new CGFtexture(this, 'images/demo_cubemap/back.png');
+        this.texLeftCubeD = new CGFtexture(this, 'images/demo_cubemap/left.png');
+        this.texRightCubeD = new CGFtexture(this, 'images/demo_cubemap/right.png');
+        this.texTopCubeD = new CGFtexture(this, 'images/demo_cubemap/top.png');
+        
+        this.cubeMap = new MyCubeMap(this, this.texTopCube, this.texFrontCube, this.texRightCube, this.texBackCube, this.texLeftCube, this.texBottomCube);
+
         this.defaultAppearance = new CGFappearance(this);
 		this.defaultAppearance.setAmbient(0.2, 0.4, 0.8, 1.0);
         this.defaultAppearance.setDiffuse(0.2, 0.4, 0.8, 1.0);
@@ -48,6 +65,8 @@ export class MyScene extends CGFscene {
 
         //Objects connected to MyInterface
         this.displayAxis = true;
+        this.selectedTexture = 0;
+        this.skyBoxTexture = { 'Test Cubemap': 0, 'Demo Cubemap': 1, '???': 2 };
     }
     initLights() {
         this.lights[0].setPosition(15, 2, 5, 1);
@@ -97,6 +116,25 @@ export class MyScene extends CGFscene {
         //this.incompleteSphere.display();
 
         this.movingObject.display();
+
+        if(this.selectedTexture == 0){
+            this.quadBKText = this.texBackCube;
+            this.quadBTText = this.texBottomCube;
+            this.quadFText = this.texFrontCube;
+            this.quadLText = this.texLeftCube;
+            this.quadRText = this.texRightCube;
+            this.quadTText = this.texTopCube;
+        }
+        if(this.selectedTexture == 1){
+            this.quadBKText = this.texBackCubeD;
+           this.quadBTText = this.texBottomCubeD;
+            this.quadFText = this.texFrontCubeD;
+           this.quadLText = this.texLeftCubeD;
+           this.quadRText = this.texRightCubeD;
+           this.quadTText = this.texTopCubeD;
+       }
+
+        this.cubeMap.display();
         // ---- END Primitive drawing section
     }
 
