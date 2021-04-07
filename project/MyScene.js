@@ -68,9 +68,9 @@ export class MyScene extends CGFscene {
     }
 
     // called periodically (as per setUpdatePeriod() in init())
-    update(t){
-        
+    update(){
         this.checkKeys();
+        this.movingObject.update();
     }
 
     display() {
@@ -106,29 +106,34 @@ export class MyScene extends CGFscene {
         var keysPressed = false;
 
         
-        if(this.gui.isKeyPressed(87)){
+        if(this.gui.isKeyPressed("KeyW")){
             text += " W ";
             keysPressed = true;
+            this.movingObject.accelerate(0.5);
         }
 
-        if(this.gui.isKeyPressed(83)){
+        if(this.gui.isKeyPressed("KeyS")){
             text += " S ";
             keysPressed = true;
+            this.movingObject.accelerate(-0.5);
         }
 
-        if(this.gui.isKeyPressed(65)){
+        if(this.gui.isKeyPressed("KeyA")){
             text += " A ";
             keysPressed = true;
+            this.movingObject.turn(Math.PI/16);
         }
 
-        if(this.gui.isKeyPressed(68)){
+        if(this.gui.isKeyPressed("KeyD")){
             text += " D ";
             keysPressed = true;
+            this.movingObject.turn(-Math.PI/16);
         }
 
-        if(this.gui.isKeyPressed(82)){
+        if(this.gui.isKeyPressed("KeyR")){
             text += " R ";
             keysPressed = true;
+            this.movingObject.reset();
         }
 
         if(keysPressed)

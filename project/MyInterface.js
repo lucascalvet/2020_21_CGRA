@@ -1,4 +1,4 @@
-import {CGFinterface, dat} from '../lib/CGF.js';
+import { CGFinterface, dat } from '../lib/CGF.js';
 
 /**
 * MyInterface
@@ -15,7 +15,7 @@ export class MyInterface extends CGFinterface {
         // init GUI. For more information on the methods, check:
         // http://workshop.chromeexperiments.com/examples/gui
         this.gui = new dat.GUI();
-        
+
         var obj = this;
 
         //Checkbox element in GUI
@@ -27,41 +27,41 @@ export class MyInterface extends CGFinterface {
 
     initKeys() {
         // create reference from the scene to the GUI
-        this.scene.gui=this;
+        this.scene.gui = this;
 
         // disable the processKeyboard function
-        this.processKeyboard=function(){};
+        this.processKeyboard = function () { };
 
         // create a named array to store which keys are being pressed
-        this.activeKeys={};
+        this.activeKeys = {};
     }
 
-    //W : 87 ; S: 83; A: 65; D: 68; R: 82
+
     processKeyDown(event) {
         // called when a key is pressed down
         // mark it as active in the array
-        this.activeKeys[event.code]=true;
+        this.activeKeys[event.code] = true;
     };
 
     processKeyUp(event) {
         // called when a key is released, mark it as inactive in the array
-        this.activeKeys[event.code]=false;
+        this.activeKeys[event.code] = false;
 
     };
-    
+
     isKeyPressed(keyCode) {
 
-        if( this.activeKeys[keyCode] === true &&
-      
-                  (keyCode == "keyL" || keyCode == "keyP")) {
-      
-                    this.activeKeys[keyCode] = false;
-      
-                    return true;
-      
-          }  
-      
-          return this.activeKeys[keyCode] || false;
-      
-      }
+        if (this.activeKeys[keyCode] === true &&
+
+            (keyCode == "keyL" || keyCode == "keyP")) {
+
+            this.activeKeys[keyCode] = false;
+
+            return true;
+
+        }
+
+        return this.activeKeys[keyCode] || false;
+
+    }
 }
