@@ -46,6 +46,13 @@ export class MyScene extends CGFscene {
         this.texLeftCubeD = new CGFtexture(this, 'images/demo_cubemap/left.png');
         this.texRightCubeD = new CGFtexture(this, 'images/demo_cubemap/right.png');
         this.texTopCubeD = new CGFtexture(this, 'images/demo_cubemap/top.png');
+
+        this.texBackCubeS = new CGFtexture(this, 'images/space_cubemap/front.png');
+        this.texBottomCubeS = new CGFtexture(this, 'images/space_cubemap/bottom.png');
+        this.texFrontCubeS = new CGFtexture(this, 'images/space_cubemap/back.png');
+        this.texLeftCubeS = new CGFtexture(this, 'images/space_cubemap/left.png');
+        this.texRightCubeS = new CGFtexture(this, 'images/space_cubemap/right.png');
+        this.texTopCubeS = new CGFtexture(this, 'images/space_cubemap/top.png');
         
         this.cubeMap = new MyCubeMap(this, this.texTopCube, this.texFrontCube, this.texRightCube, this.texBackCube, this.texLeftCube, this.texBottomCube);
 
@@ -66,7 +73,7 @@ export class MyScene extends CGFscene {
         //Objects connected to MyInterface
         this.displayAxis = true;
         this.selectedTexture = 0;
-        this.skyBoxTexture = { 'Test Cubemap': 0, 'Demo Cubemap': 1, '???': 2 };
+        this.skyBoxTexture = { 'Test Cubemap': 0, 'Demo Cubemap': 1, 'Space Cubemap': 2 };
     }
     initLights() {
         this.lights[0].setPosition(15, 2, 5, 1);
@@ -133,6 +140,14 @@ export class MyScene extends CGFscene {
            this.quadRText = this.texRightCubeD;
            this.quadTText = this.texTopCubeD;
        }
+       if(this.selectedTexture == 2){
+           this.quadBKText = this.texBackCubeS;
+           this.quadBTText = this.texBottomCubeS;
+           this.quadFText = this.texFrontCubeS;
+           this.quadLText = this.texLeftCubeS;
+           this.quadRText = this.texRightCubeS;
+           this.quadTText = this.texTopCubeS;
+   }
 
         this.cubeMap.display();
         // ---- END Primitive drawing section
