@@ -2,6 +2,7 @@ import { CGFscene, CGFcamera, CGFaxis, CGFappearance, CGFtexture } from "../lib/
 import { MySphere } from "./MySphere.js";
 import { MyMovingObject } from "./MyMovingObject.js";
 import { MyCubeMap } from "./MyCubeMap.js";
+import { MyCylinder } from "./MyCylinder.js";
 
 /**
 * MyScene
@@ -55,6 +56,7 @@ export class MyScene extends CGFscene {
         this.texTopCubeS = new CGFtexture(this, 'images/space_cubemap/top.png');
         
         this.cubeMap = new MyCubeMap(this, this.texTopCube, this.texFrontCube, this.texRightCube, this.texBackCube, this.texLeftCube, this.texBottomCube);
+        this.cylinder = new MyCylinder(this, 16);
 
         this.defaultAppearance = new CGFappearance(this);
 		this.defaultAppearance.setAmbient(0.2, 0.4, 0.8, 1.0);
@@ -72,7 +74,7 @@ export class MyScene extends CGFscene {
 
         //Objects connected to MyInterface
         this.displayAxis = true;
-        this.selectedTexture = 0;
+        this.selectedTexture = 1;
         this.skyBoxTexture = { 'Test Cubemap': 0, 'Demo Cubemap': 1, 'Space Cubemap': 2 };
     }
     initLights() {
@@ -121,6 +123,7 @@ export class MyScene extends CGFscene {
 
         //This sphere does not have defined texture coordinates
         //this.incompleteSphere.display();
+        this.cylinder.display();
 
         this.movingObject.display();
 
