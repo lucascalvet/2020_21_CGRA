@@ -62,6 +62,8 @@ export class MyScene extends CGFscene {
 
         this.cylinder = new MyCylinder(this, 16);
 
+        this.sphere = new MySphere(this, 16, 16);
+
         this.defaultAppearance = new CGFappearance(this);
 		this.defaultAppearance.setAmbient(0.2, 0.4, 0.8, 1.0);
         this.defaultAppearance.setDiffuse(0.2, 0.4, 0.8, 1.0);
@@ -80,12 +82,21 @@ export class MyScene extends CGFscene {
 		this.cylinderAppearance.setSpecular(0.0, 0.0, 0.0, 1);
 		this.cylinderAppearance.setDiffuse(0.7, 0.7, 0.7, 1);
 		this.cylinderAppearance.setShininess(120);
-
         this.cylinderAppearance.setTexture(this.texEarth);
         this.cylinderAppearance.setTextureWrap('REPEAT', 'REPEAT');
 
+        this.sphereAppearance = new CGFappearance(this);
+        this.sphereAppearance.setAmbient(0.3, 0.3, 0.3, 1);
+		this.sphereAppearance.setSpecular(0.0, 0.0, 0.0, 1);
+		this.sphereAppearance.setDiffuse(0.7, 0.7, 0.7, 1);
+		this.sphereAppearance.setShininess(120);
+        this.sphereAppearance.setTexture(this.texEarth);
+        this.sphereAppearance.setTextureWrap('REPEAT', 'REPEAT');
+
         //Objects connected to MyInterface
         this.displayAxis = true;
+        this.displayCylinder = false;
+        this.displaySphere = false;
         this.selectedTexture = 1;
         this.skyBoxTexture = { 'Test Cubemap': 0, 'Demo Cubemap': 1, 'Space Cubemap': 2 };
     }
@@ -136,10 +147,16 @@ export class MyScene extends CGFscene {
         //This sphere does not have defined texture coordinates
         //this.incompleteSphere.display();
 
-        this.cylinderAppearance.apply();
-        this.cylinder.display();
+        if (this.displayCylinder) {
+            this.cylinderAppearance.apply();
+            this.cylinder.display();
+        }
 
-        this.sphereAppearance.apply();
+        if (this.displaySphere) {
+            this.sphereAppearance.apply();
+            this.sphere.display();
+        }
+
         this.movingObject.display();
 
         if(this.selectedTexture == 0){
