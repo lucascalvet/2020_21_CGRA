@@ -67,7 +67,7 @@ export class MySphere extends CGFobject {
         theta += thetaInc;
 
         //--- Texture Coordinates
-        // To be done... 
+        this.texCoords.push(longitude/this.longDivs, latitude/this.latDivs);
         // May need some additional code also in the beginning of the function.
         
       }
