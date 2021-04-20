@@ -56,6 +56,10 @@ export class MyScene extends CGFscene {
         this.texTopCubeS = new CGFtexture(this, 'images/space_cubemap/top.png');
         
         this.cubeMap = new MyCubeMap(this, this.texTopCube, this.texFrontCube, this.texRightCube, this.texBackCube, this.texLeftCube, this.texBottomCube);
+        
+        this.texTest = new CGFtexture(this, 'images/texture.jpg');
+        this.texEarth = new CGFtexture(this, 'images/earth.jpg');
+
         this.cylinder = new MyCylinder(this, 16);
 
         this.defaultAppearance = new CGFappearance(this);
@@ -71,6 +75,14 @@ export class MyScene extends CGFscene {
 		this.sphereAppearance.setSpecular(0.0, 0.0, 0.0, 1);
 		this.sphereAppearance.setShininess(120);
 
+        this.cylinderAppearance = new CGFappearance(this);
+        this.cylinderAppearance.setAmbient(0.3, 0.3, 0.3, 1);
+		this.cylinderAppearance.setSpecular(0.0, 0.0, 0.0, 1);
+		this.cylinderAppearance.setDiffuse(0.7, 0.7, 0.7, 1);
+		this.cylinderAppearance.setShininess(120);
+
+        this.cylinderAppearance.setTexture(this.texEarth);
+        this.cylinderAppearance.setTextureWrap('REPEAT', 'REPEAT');
 
         //Objects connected to MyInterface
         this.displayAxis = true;
@@ -123,8 +135,11 @@ export class MyScene extends CGFscene {
 
         //This sphere does not have defined texture coordinates
         //this.incompleteSphere.display();
+
+        this.cylinderAppearance.apply();
         this.cylinder.display();
 
+        this.sphereAppearance.apply();
         this.movingObject.display();
 
         if(this.selectedTexture == 0){

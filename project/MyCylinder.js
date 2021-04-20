@@ -9,6 +9,7 @@ export class MyCylinder extends CGFobject {
   constructor(scene, slices) {
     super(scene);
     this.faces = slices;
+    this.height = 1;  //this line + new variable on constructor, allow further customization (cylinders with other heights) 
 
     this.initBuffers();
   }
@@ -27,52 +28,62 @@ export class MyCylinder extends CGFobject {
     var alphaInc = (2 * Math.PI) / this.faces;
 
     // Create the vertices/indices and normals for each base (0 - base; 1 - top)
-    for (let base = 0; base <= 1; base++) {
+    for (let base = 0; base < 2; base++) {
 
       // in each base, create the vertices and build slices around, starting on vertex 0
       alpha = 0;
-      for (let vertex = 0; vertex < this.faces; vertex++) {
+      for (let vertex = 0; vertex <= this.faces; vertex++) {
         //--- Vertices coordinates
-        var x = Math.cos(alpha);
-        var y = base;
-        var z = Math.sin(-alpha);
-        this.vertices.push(x, y, z);
-
+        if(vertex != this.faces){
+          var x = Math.cos(alpha);
+          var y = base * this.height;
+          var z = Math.sin(-alpha);
+          this.vertices.push(x, y, z);
+        }
+        else{
+          //repeated vertex for textures
+          this.vertices.push(1, base * this.height, 0);
+        }
+        
+        
         //--- Indices
-        if (base == 1 && vertex < this.faces) {
+        if (base == 1) {
           var currentBase = vertex;
-          var currentTop = currentBase + this.faces;
+          var currentTop = currentBase + this.faces + 1;
           // pushing two triangles using indices 
           //first the bottom one and then the top one
           
-          //bottom triangle
-          this.indices.push( currentBase, (currentBase + 1) % this.faces, currentTop);
-            
-          //top triangle
-          //Adapt the last triangle - indexes from the beggining again - Existe uma melhor maneira de fazer isto ?
-          if(currentTop + 1 >= 2*this.faces)
-            this.indices.push( (currentBase + 1) % this.faces, (currentTop + 1) - this.faces, currentTop);
-          else
-            this.indices.push( (currentBase + 1) % this.faces, (currentTop + 1) % (2*this.faces), currentTop);
+          if(vertex != this.faces){
+            this.indices.push( currentBase, currentBase + 1, currentTop);
+            this.indices.push( currentBase + 1, currentTop + 1, currentTop);
+          }
+          else {
+            this.indices.push( currentBase - 1, currentBase, currentTop - 1);
+            this.indices.push( currentBase, currentTop + 1, currentTop);
+          }
+          
         }
 
         //--- Normals
         // at each vertex, the direction of the normal is equal to 
         // the vector from the center of the cylinder to the vertex.
         // therefore, the value of the normal is equal to the position vector
-        this.normals.push(x, y, z);
+        if(vertex != this.faces){
+          this.normals.push(x, y, z);
+        }
+        else{
+          this.normals.push(1, base * this.height, 0);
+        }
 
         //increment alpha
         alpha += alphaInc;
 
 
         //--- Texture Coordinates
-        // To be done... 
-        // May need some additional code also in the beginning of the function.
-        
+        var xTex = vertex * 1/this.faces;
+        this.texCoords.push(xTex, -base);
       }
     }
-
 
     this.primitiveType = this.scene.gl.TRIANGLES;
     this.initGLBuffers();
