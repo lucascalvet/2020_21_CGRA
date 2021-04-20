@@ -58,8 +58,10 @@ export class MyCylinder extends CGFobject {
             this.indices.push( currentBase + 1, currentTop + 1, currentTop);
           }
           else {
-            this.indices.push( currentBase - 1, currentBase, currentTop - 1);
-            this.indices.push( currentBase, currentTop + 1, currentTop);
+            if(currentTop < 2*this.faces - 1){
+              this.indices.push( currentBase - 1, currentBase, currentTop - 1);
+              this.indices.push( currentBase, currentTop + 1, currentTop);
+            }
           }
           
         }
@@ -84,6 +86,8 @@ export class MyCylinder extends CGFobject {
         this.texCoords.push(xTex, -base);
       }
     }
+
+    console.log("indices: ", this.indices);
 
     this.primitiveType = this.scene.gl.TRIANGLES;
     this.initGLBuffers();
