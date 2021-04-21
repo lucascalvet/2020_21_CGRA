@@ -6,10 +6,10 @@ export class MyCylinder extends CGFobject {
    * @param  {CGFscene} scene - MyScene object
    * @param  {integer} slices - number of slices around Y axis
    */
-  constructor(scene, slices) {
+  constructor(scene, slices, yHeight) {
     super(scene);
     this.faces = slices;
-    this.height = 1;  //this line + new variable on constructor, allow further customization (cylinders with other heights) 
+    this.height = yHeight; 
 
     this.initBuffers();
   }

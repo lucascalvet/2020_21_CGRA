@@ -34,7 +34,7 @@ export class MyScene extends CGFscene {
         this.incompleteSphere = new MySphere(this, 16, 8);
         this.movingObject = new MyMovingObject(this);
 
-        this.texBackCube = new CGFtexture(this, 'images/test_cubemap/nz.png');
+        this.texBackCubchecke = new CGFtexture(this, 'images/test_cubemap/nz.png');
         this.texBottomCube = new CGFtexture(this, 'images/test_cubemap/ny.png');
         this.texFrontCube = new CGFtexture(this, 'images/test_cubemap/pz.png');
         this.texLeftCube = new CGFtexture(this, 'images/test_cubemap/nx.png');
@@ -60,7 +60,7 @@ export class MyScene extends CGFscene {
         this.texTest = new CGFtexture(this, 'images/texture.jpg');
         this.texEarth = new CGFtexture(this, 'images/earth.jpg');
 
-        this.cylinder = new MyCylinder(this, 16);
+        this.cylinder = new MyCylinder(this, 16, 1);
 
         this.sphere = new MySphere(this, 16, 16);
 
@@ -79,25 +79,30 @@ export class MyScene extends CGFscene {
 
         this.cylinderAppearance = new CGFappearance(this);
         this.cylinderAppearance.setAmbient(0.3, 0.3, 0.3, 1);
-		this.cylinderAppearance.setSpecular(0.0, 0.0, 0.0, 1);
 		this.cylinderAppearance.setDiffuse(0.7, 0.7, 0.7, 1);
+		this.cylinderAppearance.setSpecular(0.0, 0.0, 0.0, 1);
 		this.cylinderAppearance.setShininess(120);
         this.cylinderAppearance.setTexture(this.texEarth);
         this.cylinderAppearance.setTextureWrap('REPEAT', 'REPEAT');
 
         this.sphereAppearance = new CGFappearance(this);
         this.sphereAppearance.setAmbient(0.3, 0.3, 0.3, 1);
-		this.sphereAppearance.setSpecular(0.0, 0.0, 0.0, 1);
 		this.sphereAppearance.setDiffuse(0.7, 0.7, 0.7, 1);
+		this.sphereAppearance.setSpecular(0.0, 0.0, 0.0, 1);
 		this.sphereAppearance.setShininess(120);
         this.sphereAppearance.setTexture(this.texEarth);
         this.sphereAppearance.setTextureWrap('REPEAT', 'REPEAT');
+
+
+        this.lastUpdate = 0;
 
         //Objects connected to MyInterface
         this.displayAxis = true;
         this.displayCylinder = false;
         this.displaySphere = false;
         this.selectedTexture = 1;
+        this.scaleFactor = 1;
+        this.speedFactor = 1;
         this.skyBoxTexture = { 'Test Cubemap': 0, 'Demo Cubemap': 1, 'Space Cubemap': 2 };
     }
     initLights() {
@@ -119,9 +124,13 @@ export class MyScene extends CGFscene {
     }
 
     // called periodically (as per setUpdatePeriod() in init())
-    update(){
+    update(t){
         this.checkKeys();
-        this.movingObject.update();
+
+        if(t > 0)
+            this.movingObject.update(t - this.lastUpdate);
+        
+        this.lastUpdate = t;
     }
 
     display() {
@@ -134,7 +143,6 @@ export class MyScene extends CGFscene {
         this.loadIdentity();
         // Apply transformations corresponding to the camera position relative to the origin
         this.applyViewMatrix();
-        
         
         this.defaultAppearance.apply();
         // Draw axis
@@ -157,7 +165,10 @@ export class MyScene extends CGFscene {
             this.sphere.display();
         }
 
+        this.pushMatrix();
+        this.scale(this.scaleFactor, this.scaleFactor, this.scaleFactor);
         this.movingObject.display();
+        this.popMatrix();
 
         if(this.selectedTexture == 0){
             this.quadBKText = this.texBackCube;
@@ -192,7 +203,6 @@ export class MyScene extends CGFscene {
 
         var text = "Keys pressed : ";
         var keysPressed = false;
-
         
         if(this.gui.isKeyPressed("KeyW")){
             text += " W ";

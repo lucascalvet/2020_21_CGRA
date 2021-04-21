@@ -33,10 +33,10 @@ export class MyMovingObject extends CGFobject {
         this.scene.popMatrix();
     }
 
-    update(){
-        this.x = this.x + Math.sin(this.alpha) * this.velocity;
+    update(t){
+        this.x = this.x + Math.sin(this.alpha) * (this.velocity * t/1000.0) * this.scene.speedFactor;
         this.y = this.y;
-        this.z = this.z + Math.cos(this.alpha) * this.velocity; 
+        this.z = this.z + Math.cos(this.alpha) * (this.velocity * t/1000.0) * this.scene.speedFactor;
     }
 
     turn(val){

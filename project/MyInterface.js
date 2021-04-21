@@ -27,6 +27,12 @@ export class MyInterface extends CGFinterface {
         //Dropdown for textures
         this.gui.add(this.scene, 'selectedTexture', this.scene.skyBoxTexture).name('SkyBox Texture');
 
+        //Scale Factor Slider element in GUI
+        this.gui.add(this.scene, 'scaleFactor', 0.5, 3).name('Scale Factor');
+
+        //SpeedFactor Slider element in GUI
+        this.gui.add(this.scene, 'speedFactor', 0.1, 3).name('Speed Factor');
+
         this.initKeys();
         return true;
     }
