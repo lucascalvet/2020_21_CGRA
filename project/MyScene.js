@@ -216,7 +216,11 @@ export class MyScene extends CGFscene {
 
         this.cubeMap.display();
 
+        this.pushMatrix();
+        this.translate(0, 3, 0);
         this.mainFish.display();
+        this.popMatrix();
+    
         // ---- END Primitive drawing section
     }
 
