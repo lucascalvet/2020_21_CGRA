@@ -13,6 +13,10 @@ export class MyFish extends CGFobject {
 		super(scene);
         this.ratio = bodyRatio;
         this.shader = shader;
+        this.alpha = Math.PI/6; //Left & Right Fin Angles
+        this.theta = 0; //Tail Angle
+        this.up = true;
+        this.right = true;
         
 		this.init();
 	}
@@ -93,27 +97,60 @@ export class MyFish extends CGFobject {
         this.scene.pushMatrix();
         this.scene.translate(0.25, 0, 0);
         this.scene.scale(0.09, 0.09, 0.09);
+        this.scene.rotate(this.theta, 0, 1, 0);
         this.scene.rotate(Math.PI/2, 0, 0, 1);
         this.scene.translate(0,-2, 0);
         this.scene.tail.display();
         this.scene.popMatrix();
 
         this.scene.pushMatrix();
-        this.scene.translate(-0.03, -0.01, 0.12);
+        this.scene.translate(-0.03, -0.01, 0.1225);
         this.scene.scale(0.05, 0.05, 0.05);
-        this.scene.rotate(-Math.PI/6, 1, 0, 0);
+        this.scene.rotate(-this.alpha, 1, 0, 0);
         this.scene.translate(1, -1, 0);
         this.scene.left_fin.display();
         this.scene.popMatrix();
 
         this.scene.pushMatrix();
-        this.scene.translate(-0.03, -0.01, -0.12);
+        this.scene.translate(-0.03, -0.01, -0.1225);
         this.scene.scale(0.05, 0.05, 0.05);
-        this.scene.rotate(Math.PI/6, 1, 0, 0);
+        this.scene.rotate(this.alpha, 1, 0, 0);
         this.scene.translate(1, -1, 0);
         this.scene.right_fin.display();
         this.scene.popMatrix();
         
     }
 
+    update(t){
+
+        //fin animation
+        if(this.up)
+            this.alpha += Math.sin(t/1000.0);
+        else
+            this.alpha -= Math.sin(t/1000.0);
+            
+        if(this.alpha >= Math.PI/3){
+            this.alpha %= Math.PI/3 + 0.1 ;
+            this.up = false;
+        }
+
+        if(this.alpha <= Math.PI/15){
+            this.up = true;
+        }
+
+        //tail animation
+        if(this.right)
+            this.theta += Math.sin(t/550.0);
+        else
+            this.theta -= Math.sin(t/550.0);
+        
+        if(this.theta >= 0.35){
+            this.theta %= 1.92 + 0.1 ;
+            this.right = false;
+        }
+
+        if(this.theta <= -0.35){
+            this.right = true;
+        }
+    }
 }

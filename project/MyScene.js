@@ -6,18 +6,6 @@ import { MyCylinder } from "./MyCylinder.js";
 import { MyFish } from "./MyFish.js";
 
 /**
- * getStringFromUrl(url)
- * Function to load a text file from a URL (used to display shader sources)
- */
-
- function getStringFromUrl(url) {
-	var xmlHttpReq = new XMLHttpRequest();
-    xmlHttpReq.open("GET", url, false);
-    xmlHttpReq.send();
-    return xmlHttpReq.responseText;
-}
-
-/**
 * MyScene
 * @constructor
 */
@@ -144,8 +132,11 @@ export class MyScene extends CGFscene {
     update(t){
         this.checkKeys();
 
-        if(t > 0)
+        if(t > 0){
             this.movingObject.update(t - this.lastUpdate);
+            this.mainFish.update(t - this.lastUpdate);
+        }
+
         
         this.lastUpdate = t;
     }
