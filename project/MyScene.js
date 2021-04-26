@@ -1,8 +1,21 @@
-import { CGFscene, CGFcamera, CGFaxis, CGFappearance, CGFtexture } from "../lib/CGF.js";
+import { CGFscene, CGFcamera, CGFaxis, CGFappearance, CGFtexture, CGFshader } from "../lib/CGF.js";
 import { MySphere } from "./MySphere.js";
 import { MyMovingObject } from "./MyMovingObject.js";
 import { MyCubeMap } from "./MyCubeMap.js";
 import { MyCylinder } from "./MyCylinder.js";
+import { MyFish } from "./MyFish.js";
+
+/**
+ * getStringFromUrl(url)
+ * Function to load a text file from a URL (used to display shader sources)
+ */
+
+ function getStringFromUrl(url) {
+	var xmlHttpReq = new XMLHttpRequest();
+    xmlHttpReq.open("GET", url, false);
+    xmlHttpReq.send();
+    return xmlHttpReq.responseText;
+}
 
 /**
 * MyScene
@@ -93,6 +106,9 @@ export class MyScene extends CGFscene {
         this.sphereAppearance.setTexture(this.texEarth);
         this.sphereAppearance.setTextureWrap('REPEAT', 'REPEAT');
 
+        this.body_shader = new CGFshader(this.gl, "shaders/body.vert", "shaders/body.frag");
+
+        this.mainFish = new MyFish(this, 0.4, this.body_shader);
 
         this.lastUpdate = 0;
 
@@ -100,6 +116,7 @@ export class MyScene extends CGFscene {
         this.displayAxis = true;
         this.displayCylinder = false;
         this.displaySphere = false;
+        this.displayMVObj = false;
         this.selectedTexture = 1;
         this.scaleFactor = 1;
         this.speedFactor = 1;
@@ -165,10 +182,12 @@ export class MyScene extends CGFscene {
             this.sphere.display();
         }
 
-        this.pushMatrix();
-        this.scale(this.scaleFactor, this.scaleFactor, this.scaleFactor);
-        this.movingObject.display();
-        this.popMatrix();
+        if (this.displayMVObj) {
+            this.pushMatrix();
+            this.scale(this.scaleFactor, this.scaleFactor, this.scaleFactor);
+            this.movingObject.display();
+            this.popMatrix();
+        }
 
         if(this.selectedTexture == 0){
             this.quadBKText = this.texBackCube;
@@ -180,22 +199,24 @@ export class MyScene extends CGFscene {
         }
         if(this.selectedTexture == 1){
             this.quadBKText = this.texBackCubeD;
-           this.quadBTText = this.texBottomCubeD;
+            this.quadBTText = this.texBottomCubeD;
             this.quadFText = this.texFrontCubeD;
-           this.quadLText = this.texLeftCubeD;
-           this.quadRText = this.texRightCubeD;
-           this.quadTText = this.texTopCubeD;
+            this.quadLText = this.texLeftCubeD;
+            this.quadRText = this.texRightCubeD;
+            this.quadTText = this.texTopCubeD;
        }
        if(this.selectedTexture == 2){
-           this.quadBKText = this.texBackCubeS;
-           this.quadBTText = this.texBottomCubeS;
-           this.quadFText = this.texFrontCubeS;
-           this.quadLText = this.texLeftCubeS;
-           this.quadRText = this.texRightCubeS;
-           this.quadTText = this.texTopCubeS;
+            this.quadBKText = this.texBackCubeS;
+            this.quadBTText = this.texBottomCubeS;
+            this.quadFText = this.texFrontCubeS;
+            this.quadLText = this.texLeftCubeS;
+            this.quadRText = this.texRightCubeS;
+            this.quadTText = this.texTopCubeS;
    }
 
         this.cubeMap.display();
+
+        this.mainFish.display();
         // ---- END Primitive drawing section
     }
 

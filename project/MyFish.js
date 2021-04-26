@@ -1,4 +1,4 @@
-import { CGFobject, CGFappearance} from '../lib/CGF.js';
+import { CGFobject, CGFappearance } from '../lib/CGF.js';
 import { MyTriangle } from "./MyTriangle.js";
 import { MyTriangleBig } from "./MyTriangleBig.js";
 import { MySphere } from "./MySphere.js";
@@ -9,8 +9,11 @@ import { MySphere } from "./MySphere.js";
  * @param scene - Reference to MyScene object
  */
 export class MyFish extends CGFobject {
-	constructor(scene) {
+	constructor(scene, bodyRatio, shader) {
 		super(scene);
+        this.ratio = bodyRatio;
+        this.shader = shader;
+        
 		this.init();
 	}
 	
@@ -23,36 +26,94 @@ export class MyFish extends CGFobject {
         this.scene.left_eye = new MySphere(this.scene, 16, 16);
         this.scene.right_eye = new MySphere(this.scene, 16, 16);
 
-        // Texture Material
+        // Scales Texture Material
         this.scene.scales = new CGFappearance(this.scene);
         this.scene.scales.setAmbient(0.1, 0.1, 0.1, 1);
         this.scene.scales.setDiffuse(0.9, 0.9, 0.9, 1);
         this.scene.scales.setSpecular(0.1, 0.1, 0.1, 1);
         this.scene.scales.setShininess(10.0);
-        // this.scene.scales.loadTexture('images/part-b-images/scales.png');
-        // this.scene.scales.setTextureWrap('REPEAT', 'REPEAT');
+        this.scene.scales.loadTexture('images/part-b-images/scales.png');
+        this.scene.scales.setTextureWrap('REPEAT', 'REPEAT');
+
+        // FishEye Texture Material
+        this.scene.eye_tex = new CGFappearance(this.scene);
+        this.scene.eye_tex.setAmbient(0.1, 0.1, 0.1, 1);
+        this.scene.eye_tex.setDiffuse(0.9, 0.9, 0.9, 1);
+        this.scene.eye_tex.setSpecular(0.1, 0.1, 0.1, 1);
+        this.scene.eye_tex.setShininess(10.0);
+        this.scene.eye_tex.loadTexture('images/part-b-images/fish_eye.png');
+        this.scene.eye_tex.setTextureWrap('REPEAT', 'REPEAT');
+  
+        //Fish Color Material
+        this.scene.fish_color = new CGFappearance(this.scene);
+        this.scene.fish_color.setAmbient(1.0, 0.6863, 0.2510, 1.0);
+        this.scene.fish_color.setDiffuse(1.0, 0.6863, 0.2510, 1.0);
+        this.scene.fish_color.setSpecular(1.0, 0.6863, 0.2510, 1.0);
+        this.scene.fish_color.setShininess(10.0);
     }
 
     display() {
 
         this.scene.scales.apply();
+        this.scene.setActiveShader(this.shader);
+        this.scene.pushMatrix();
+        this.scene.scale(0.25, 0.18, 0.125); //0.25 porque o comprimento inicial do peixe era 2
+        this.scene.body.display();
+        this.scene.popMatrix();
+
+        //rever como está o shader
+
+        this.scene.setActiveShader(this.scene.defaultShader);
+
+        this.scene.eye_tex.apply();
+        this.scene.pushMatrix();
+        this.scene.translate(-0.10, 0.06, 0.095);
+        this.scene.rotate(Math.PI/2, 0, 1, 0);
+        this.scene.scale(0.035, 0.035, 0.035);
+        this.scene.left_eye.display();
+        this.scene.popMatrix();
+
+        this.scene.pushMatrix();
+        this.scene.translate(-0.10, 0.06, -0.095);
+        this.scene.rotate(-Math.PI/2, 0, 1, 0);
+        this.scene.scale(0.035, 0.035, 0.035);
+        this.scene.right_eye.display();
+        this.scene.popMatrix();
+
+        this.scene.fish_color.apply();
+
+        this.scene.pushMatrix();
+        this.scene.translate(0.05, 0.175, 0);
+        this.scene.scale(0.05, 0.05, 0.05);
+        this.scene.rotate(Math.PI, 0, 1, 0);
+        this.scene.translate(1, 1, 0);
+        this.scene.top_fin.display();
+        this.scene.popMatrix();
+
+        this.scene.pushMatrix();
+        this.scene.translate(0.25, 0, 0);
+        this.scene.scale(0.09, 0.09, 0.09);
+        this.scene.rotate(Math.PI/2, 0, 0, 1);
+        this.scene.translate(0,-2, 0);
+        this.scene.tail.display();
+        this.scene.popMatrix();
+
+        this.scene.pushMatrix();
+        this.scene.translate(-0.03, -0.01, 0.12);
+        this.scene.scale(0.05, 0.05, 0.05);
+        this.scene.rotate(-Math.PI/6, 1, 0, 0);
+        this.scene.translate(1, -1, 0);
+        this.scene.left_fin.display();
+        this.scene.popMatrix();
+
+        this.scene.pushMatrix();
+        this.scene.translate(-0.03, -0.01, -0.12);
+        this.scene.scale(0.05, 0.05, 0.05);
+        this.scene.rotate(Math.PI/6, 1, 0, 0);
+        this.scene.translate(1, -1, 0);
+        this.scene.right_fin.display();
+        this.scene.popMatrix();
         
-    }
-
-    enableNormalViz() {
-        this.scene.diamond.enableNormalViz();
-        this.scene.triangle.enableNormalViz();
-        this.scene.triangleBig.enableNormalViz();
-        this.scene.triangleSmall.enableNormalViz();
-        this.scene.parallelogram.enableNormalViz();
-    }
-
-    disableNormalViz() {
-        this.scene.diamond.disableNormalViz();
-        this.scene.triangle.disableNormalViz();
-        this.scene.triangleBig.disableNormalViz();
-        this.scene.triangleSmall.disableNormalViz();
-        this.scene.parallelogram.disableNormalViz();
     }
 
 }
