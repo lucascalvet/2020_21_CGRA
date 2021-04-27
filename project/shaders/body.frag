@@ -6,14 +6,19 @@ varying vec2 vTextureCoord;
 varying vec3 coords;
 
 uniform sampler2D uSampler;
+uniform float bodyHeadRatio;
+uniform vec4 colorBody;
+
+
 
 void main() {
 	vec4 color = texture2D(uSampler, vTextureCoord);
-	
-     if ( coords.x <= -0.2)
-		gl_FragColor = vec4(1.0, 0.6863, 0.2510, 1.0);
+	float separator;
+
+	separator = (bodyHeadRatio - 0.5) * 2.0;
+
+    if (coords.x <= separator)
+		gl_FragColor = colorBody;
 	else
-	{
         gl_FragColor = color;
-	}
 }

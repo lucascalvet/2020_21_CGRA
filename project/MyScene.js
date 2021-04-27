@@ -96,7 +96,7 @@ export class MyScene extends CGFscene {
 
         this.body_shader = new CGFshader(this.gl, "shaders/body.vert", "shaders/body.frag");
 
-        this.mainFish = new MyFish(this, 0.4, this.body_shader);
+        this.mainFish = new MyFish(this, 0.4, [1.0, 0.6863, 0.2510, 1.0]);
 
         this.lastUpdate = 0;
 
