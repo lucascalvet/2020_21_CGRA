@@ -8,7 +8,7 @@ import { CGFobject, CGFtexture, CGFappearance, CGFshader } from '../lib/CGF.js';
  * @param maxHeight - the maximum height of the water surface
 */
 export class MyWaterSurf extends CGFobject {
-	constructor(scene, nrDivs, length, WaterLevel, texDistortion) {
+	constructor(scene, nrDivs, length, WaterLevel) {
 		super(scene);
 		// nrDivs = 1 if not provided
 		nrDivs = typeof nrDivs !== 'undefined' ? nrDivs : 1;
@@ -17,11 +17,10 @@ export class MyWaterSurf extends CGFobject {
 		this.patchLength = length / nrDivs;
 
         this.height = WaterLevel;
-        this.distortion = texDistortion;
 
 		this.initBuffers();
 		this.shader = new CGFshader(this.scene.gl, "shaders/waterSurf.vert", "shaders/waterSurf.frag");
-		this.shader.setUniformsValues({ uSampler: 0 , uSampler1: 1, distortion: this.distortion});
+		this.shader.setUniformsValues({ uSampler: 0 , uSampler1: 1});
 
 		// Textures
 		this.pierTex = new CGFtexture(this.scene, 'images/part-b-images/pier.jpg');
