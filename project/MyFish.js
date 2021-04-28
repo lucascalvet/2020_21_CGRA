@@ -9,10 +9,11 @@ import { MySphere } from "./MySphere.js";
  * @param scene - Reference to MyScene object
  */
 export class MyFish extends CGFobject {
-	constructor(scene, bodyRatio, shader) {
+	constructor(scene, bodyRatio, color) {
 		super(scene);
         this.ratio = bodyRatio;
-        this.shader = shader;
+        this.body_color = color;
+
         this.alpha = Math.PI/6; //Left & Right Fin Angles
         this.theta = 0; //Tail Angle
         this.up = true;
@@ -50,16 +51,23 @@ export class MyFish extends CGFobject {
   
         //Fish Color Material
         this.scene.fish_color = new CGFappearance(this.scene);
-        this.scene.fish_color.setAmbient(1.0, 0.6863, 0.2510, 1.0);
-        this.scene.fish_color.setDiffuse(1.0, 0.6863, 0.2510, 1.0);
-        this.scene.fish_color.setSpecular(1.0, 0.6863, 0.2510, 1.0);
+        this.scene.fish_color.setAmbient(this.body_color[0], this.body_color[1], this.body_color[2], this.body_color[3]);
+        this.scene.fish_color.setDiffuse(this.body_color[0], this.body_color[1], this.body_color[2], this.body_color[3]);
+        this.scene.fish_color.setSpecular(this.body_color[0], this.body_color[1], this.body_color[2], this.body_color[3]);
         this.scene.fish_color.setShininess(10.0);
     }
 
     display() {
 
+        this.scene.pushMatrix();
+        //this rotate is necessary because the fish was designed with the front to the negative x
+        this.scene.rotate(Math.PI/2, 0, 1, 0);
+        //it puts the front of the fish in positive z
+
+        this.scene.body_shader.setUniformsValues({bodyHeadRatio : this.ratio , colorBody: this.body_color});
+
         this.scene.scales.apply();
-        this.scene.setActiveShader(this.shader);
+        this.scene.setActiveShader(this.scene.body_shader);
         this.scene.pushMatrix();
         this.scene.scale(0.25, 0.18, 0.125); //0.25 porque o comprimento inicial do peixe era 2
         this.scene.body.display();
@@ -119,6 +127,7 @@ export class MyFish extends CGFobject {
         this.scene.right_fin.display();
         this.scene.popMatrix();
         
+        this.scene.popMatrix();
     }
 
     update(t){
