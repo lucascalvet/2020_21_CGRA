@@ -4,6 +4,7 @@ import { MyMovingObject } from "./MyMovingObject.js";
 import { MyCubeMap } from "./MyCubeMap.js";
 import { MyCylinder } from "./MyCylinder.js";
 import { MyFish } from "./MyFish.js";
+import { MySeaFloor } from "./MySeaFloor.js";
 
 /**
 * MyScene
@@ -95,8 +96,9 @@ export class MyScene extends CGFscene {
         this.sphereAppearance.setTextureWrap('REPEAT', 'REPEAT');
 
         this.body_shader = new CGFshader(this.gl, "shaders/body.vert", "shaders/body.frag");
-
         this.mainFish = new MyFish(this, 0.4, this.body_shader);
+
+        this.seaFloor = new MySeaFloor(this, 200, 50, 1, 0, 0, 2);
 
         this.lastUpdate = 0;
 
@@ -117,7 +119,7 @@ export class MyScene extends CGFscene {
         this.lights[0].update();
     }
     initCameras() {
-        this.camera = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(15, 15, 15), vec3.fromValues(0, 0, 0));
+        this.camera = new CGFcamera(1.7, 0.1, 500, vec3.fromValues(2, 2, 2), vec3.fromValues(0, 2, 0));
     }
 
     setDefaultAppearance() {
@@ -136,7 +138,6 @@ export class MyScene extends CGFscene {
             this.movingObject.update(t - this.lastUpdate);
             this.mainFish.update(t - this.lastUpdate);
         }
-
         
         this.lastUpdate = t;
     }
@@ -211,6 +212,8 @@ export class MyScene extends CGFscene {
         this.translate(0, 3, 0);
         this.mainFish.display();
         this.popMatrix();
+
+        this.seaFloor.display();
     
         // ---- END Primitive drawing section
     }
