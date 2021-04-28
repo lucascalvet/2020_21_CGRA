@@ -7,21 +7,21 @@ import { CGFobject, CGFtexture, CGFappearance, CGFshader } from '../lib/CGF.js';
  * @param length - the length of both directions of the surface
  * @param maxHeight - the maximum height of the sea floor
 */
-export class MySeaFloor extends CGFobject {
-	constructor(scene, nrDivs, length, maxHeight, nestX, nestZ, nestRadius) {
+export class MySeaShell extends CGFobject {
+	constructor(scene, nrDivs, coordX, coordZ, radius) {
 		super(scene);
 		// nrDivs = 1 if not provided
 		nrDivs = typeof nrDivs !== 'undefined' ? nrDivs : 1;
 		this.nrDivs = nrDivs;
-		this.length = length;
-		this.patchLength = length / nrDivs;
+		this.coordX = coordX;
+		this.coordZ = coordZ;
+		this.radius = radius;
+		this.patchLength = radius / nrDivs;
 		this.initBuffers();
-		this.shader = new CGFshader(this.scene.gl, "shaders/seafloor.vert", "shaders/seafloor.frag");
-		this.shader.setUniformsValues({ uSampler2: 1 , uSampler3: 2 , uSampler4: 3, maxHeight: maxHeight, nestx: nestX, nestZ: nestZ, nestRadius: nestRadius});
+		this.shader = new CGFshader(this.scene.gl, "shaders/seashell.vert", "shaders/seashell.frag");
+		this.shader.setUniformsValues({ uSampler2: 1 });
 
 		// Textures
-		this.sandTexture = new CGFtexture(this.scene, 'images/part-b-images/sand.png');
-		this.sandMapTexture = new CGFtexture(this.scene, 'images/part-b-images/sandMap.png');
 		this.shellTexture = new CGFtexture(this.scene, 'images/part-b-images/seashell.png');
 		this.shellMapTexture = new CGFtexture(this.scene, 'images/part-b-images/seashellMap.png');
 	}
@@ -30,9 +30,9 @@ export class MySeaFloor extends CGFobject {
 		this.vertices = [];
 		this.normals = [];
 		this.texCoords = [];
-		var zCoord = - this.length / 2.0;
+		var zCoord = this.coordZ;
 		for (var j = 0; j <= this.nrDivs; j++) {
-			var xCoord = - this.length / 2.0;
+			var xCoord = this.coordX;
 			for (var i = 0; i <= this.nrDivs; i++) {
 				this.vertices.push(xCoord, 0, zCoord);
 				this.normals.push(0, 1, 0);
@@ -61,10 +61,8 @@ export class MySeaFloor extends CGFobject {
 	}
 
 	display() {
-		this.sandTexture.bind(0);
-		this.sandMapTexture.bind(1);
-		this.shellTexture.bind(2);
-		this.shellMapTexture.bind(3);
+		this.shellTexture.bind(0);
+		this.shellMapTexture.bind(1);
 		this.scene.setActiveShader(this.shader);
 		super.display();
 		this.scene.setActiveShader(this.scene.defaultShader);

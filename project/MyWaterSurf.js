@@ -1,29 +1,31 @@
 import { CGFobject, CGFtexture, CGFappearance, CGFshader } from '../lib/CGF.js';
 /**
-* MySeaFloor
+* MyWaterSurf
 * @constructor
  * @param scene - Reference to MyScene object
  * @param nrDivs - number of divisions in both directions of the surface
  * @param length - the length of both directions of the surface
- * @param maxHeight - the maximum height of the sea floor
+ * @param maxHeight - the maximum height of the water surface
 */
-export class MySeaFloor extends CGFobject {
-	constructor(scene, nrDivs, length, maxHeight, nestX, nestZ, nestRadius) {
+export class MyWaterSurf extends CGFobject {
+	constructor(scene, nrDivs, length, WaterLevel, texDistortion) {
 		super(scene);
 		// nrDivs = 1 if not provided
 		nrDivs = typeof nrDivs !== 'undefined' ? nrDivs : 1;
 		this.nrDivs = nrDivs;
 		this.length = length;
 		this.patchLength = length / nrDivs;
+
+        this.height = WaterLevel;
+        this.distortion = texDistortion;
+
 		this.initBuffers();
-		this.shader = new CGFshader(this.scene.gl, "shaders/seafloor.vert", "shaders/seafloor.frag");
-		this.shader.setUniformsValues({ uSampler2: 1 , uSampler3: 2 , uSampler4: 3, maxHeight: maxHeight, nestx: nestX, nestZ: nestZ, nestRadius: nestRadius});
+		this.shader = new CGFshader(this.scene.gl, "shaders/waterSurf.vert", "shaders/waterSurf.frag");
+		this.shader.setUniformsValues({ uSampler: 0 , uSampler1: 1, distortion: this.distortion});
 
 		// Textures
-		this.sandTexture = new CGFtexture(this.scene, 'images/part-b-images/sand.png');
-		this.sandMapTexture = new CGFtexture(this.scene, 'images/part-b-images/sandMap.png');
-		this.shellTexture = new CGFtexture(this.scene, 'images/part-b-images/seashell.png');
-		this.shellMapTexture = new CGFtexture(this.scene, 'images/part-b-images/seashellMap.png');
+		this.pierTex = new CGFtexture(this.scene, 'images/part-b-images/pier.jpg');
+		this.waterDistMapTex = new CGFtexture(this.scene, 'images/part-b-images/distortionmap.png');
 	}
 	initBuffers() {
 		// Generate vertices, normals, and texCoords
@@ -61,12 +63,21 @@ export class MySeaFloor extends CGFobject {
 	}
 
 	display() {
-		this.sandTexture.bind(0);
-		this.sandMapTexture.bind(1);
-		this.shellTexture.bind(2);
-		this.shellMapTexture.bind(3);
+		this.pierTex.bind(0);
+		this.waterDistMapTex.bind(1);
+
 		this.scene.setActiveShader(this.shader);
-		super.display();
+
+        this.scene.pushMatrix();
+        this.scene.translate(0, this.height, 0);
+		this.scene.rotate(Math.PI, 1, 0, 0);
+        super.display();
+        this.scene.popMatrix();
+
 		this.scene.setActiveShader(this.scene.defaultShader);
 	}
+
+    update(t){
+        this.shader.setUniformsValues({ timeFactor: t / 100 % 100 });
+    }
 }
