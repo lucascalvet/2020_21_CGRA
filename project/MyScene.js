@@ -39,7 +39,7 @@ export class MyScene extends CGFscene {
         this.incompleteSphere = new MySphere(this, 16, 8);
         this.movingObject = new MyMovingObject(this);
 
-        this.texBackCubchecke = new CGFtexture(this, 'images/test_cubemap/nz.png');
+        this.texBackCube = new CGFtexture(this, 'images/test_cubemap/nz.png');
         this.texBottomCube = new CGFtexture(this, 'images/test_cubemap/ny.png');
         this.texFrontCube = new CGFtexture(this, 'images/test_cubemap/pz.png');
         this.texLeftCube = new CGFtexture(this, 'images/test_cubemap/nx.png');
