@@ -25,6 +25,15 @@ export class MyWaterSurf extends CGFobject {
 		// Textures
 		this.pierTex = new CGFtexture(this.scene, 'images/part-b-images/pier.jpg');
 		this.waterDistMapTex = new CGFtexture(this.scene, 'images/part-b-images/distortionmap.png');
+
+		//Pier Appearence - for time cicle of the image
+		this.pierApp = new CGFappearance(this.scene);
+        this.pierApp.setAmbient(0.1, 0.1, 0.1, 1);
+        this.pierApp.setDiffuse(0.9, 0.9, 0.9, 1);
+        this.pierApp.setSpecular(0.1, 0.1, 0.1, 1);
+        this.pierApp.setShininess(10.0);
+        this.pierApp.setTexture(this.pierTex);
+        this.pierApp.setTextureWrap('CLAMP_TO_EDGE', 'CLAMP_TO_EDGE');
 	}
 	initBuffers() {
 		// Generate vertices, normals, and texCoords
@@ -65,6 +74,7 @@ export class MyWaterSurf extends CGFobject {
 		this.pierTex.bind(0);
 		this.waterDistMapTex.bind(1);
 
+		this.pierApp.apply();
 		this.scene.setActiveShader(this.shader);
 
         this.scene.pushMatrix();
