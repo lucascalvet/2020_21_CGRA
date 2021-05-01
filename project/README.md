@@ -18,10 +18,16 @@
 
 ![Screenshot 1c](screenshots/proj-t03g05-1c.png)
 
-## 2 - Sea Floor and Nest
+### 2 - Sea Floor and Nest
 
-## 3 - Water Surface
+### 3 - Water Surface
 
 ![Screenshot 3a](screenshots/proj-t03g05-3a.png)
 
 ![Screenshot 3b](screenshots/proj-t03g05-3b.png)
+
+### 4 - Rocks
+
+### 5 - Pillars
+
+<!-- Adicionar as fotos que faltam quando se decidir as cenas sobre os pilares -->

@@ -18,7 +18,6 @@ export class MyWaterSurf extends CGFobject {
 
         this.height = WaterLevel;
 
-		this.initBuffers();
 		this.shader = new CGFshader(this.scene.gl, "shaders/waterSurf.vert", "shaders/waterSurf.frag");
 		this.shader.setUniformsValues({ uSampler: 0 , uSampler1: 1});
 
@@ -34,6 +33,8 @@ export class MyWaterSurf extends CGFobject {
         this.pierApp.setShininess(10.0);
         this.pierApp.setTexture(this.pierTex);
         this.pierApp.setTextureWrap('CLAMP_TO_EDGE', 'CLAMP_TO_EDGE');
+
+		this.initBuffers();
 	}
 	initBuffers() {
 		// Generate vertices, normals, and texCoords

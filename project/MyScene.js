@@ -7,6 +7,7 @@ import { MyFish } from "./MyFish.js";
 import { MySeaFloor } from "./MySeaFloor.js";
 import { MySeaShell } from "./MySeaShell.js";
 import { MyWaterSurf } from "./MyWaterSurf.js";
+import { MyPillar } from "./MyPillar.js";
 
 /**
 * MyScene
@@ -106,6 +107,18 @@ export class MyScene extends CGFscene {
         this.seaShell = new MySeaShell(this, 10, 1, 0, 2);
 
         this.waterSurface = new MyWaterSurf(this, 200, 50, 10);
+
+        this.pillar1 = new MyPillar(this, 5, 0, 0, 0.25, 12);
+        this.pillar2 = new MyPillar(this, 5, 0, -3.5, 0.25, 12);
+        this.pillar3 = new MyPillar(this, 10, 0, 0, 0.25, 12);
+        this.pillar4 = new MyPillar(this, 10, 0, -3.5, 0.25, 12);
+        this.pillar5 = new MyPillar(this, 15, 0, 0, 0.25, 12);
+        this.pillar6 = new MyPillar(this, 15, 0, -3.5, 0.25, 12);
+        this.pillar7 = new MyPillar(this, 20, 0, 0, 0.25, 12);
+        this.pillar8 = new MyPillar(this, 20, 0, -3.5, 0.25, 12);
+        //this.pillar9 = new MyPillar(this, 25, 0, 0, 0.25, 12);    /estes 2 pilares estão no limite da cena - fica mais bonito mas será que vale a pena estarem um pouco fora?
+        //this.pillar10 = new MyPillar(this, 25, 0, -3.5, 0.25, 12);
+        
 
         this.lastUpdate = 0;
 
@@ -225,7 +238,18 @@ export class MyScene extends CGFscene {
         this.seaShell.display();
 
         this.waterSurface.display();
-    
+
+        this.pillar1.display();
+        this.pillar2.display();
+        this.pillar3.display();
+        this.pillar4.display();
+        this.pillar5.display();
+        this.pillar6.display();
+        this.pillar7.display();
+        this.pillar8.display();
+        //this.pillar9.display();   //estes 2 pilares estão no limite da cena - fica mais bonito mas será que vale a pena estarem um pouco fora?
+        //this.pillar10.display();
+
         // ---- END Primitive drawing section
     }
 
