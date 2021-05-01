@@ -59,7 +59,21 @@ export class MyScene extends CGFscene {
         this.texLeftCubeS = new CGFtexture(this, 'images/space_cubemap/left.png');
         this.texRightCubeS = new CGFtexture(this, 'images/space_cubemap/right.png');
         this.texTopCubeS = new CGFtexture(this, 'images/space_cubemap/top.png');
-        
+
+        this.texUW1Back = new CGFtexture(this, 'images/part-b-images/underwater_cubemap/front.jpg');
+        this.texUW1Bottom = new CGFtexture(this, 'images/part-b-images/underwater_cubemap/bottom.jpg');
+        this.texUW1Front = new CGFtexture(this, 'images/part-b-images/underwater_cubemap/back.jpg');
+        this.texUW1Left = new CGFtexture(this, 'images/part-b-images/underwater_cubemap/left.jpg');
+        this.texUW1Right = new CGFtexture(this, 'images/part-b-images/underwater_cubemap/right.jpg');
+        this.texUW1Top = new CGFtexture(this, 'images/part-b-images/underwater_cubemap/top.jpg');
+
+        this.texUW2Back = new CGFtexture(this, 'images/part-b-images/underwater_cubemap_night/front.jpg');
+        this.texUW2Bottom = new CGFtexture(this, 'images/part-b-images/underwater_cubemap_night/bottom.jpg');
+        this.texUW2Front = new CGFtexture(this, 'images/part-b-images/underwater_cubemap_night/back.jpg');
+        this.texUW2Left = new CGFtexture(this, 'images/part-b-images/underwater_cubemap_night/left.jpg');
+        this.texUW2Right = new CGFtexture(this, 'images/part-b-images/underwater_cubemap_night/right.jpg');
+        this.texUW2Top = new CGFtexture(this, 'images/part-b-images/underwater_cubemap_night/top.jpg');
+   
         this.cubeMap = new MyCubeMap(this, this.texTopCube, this.texFrontCube, this.texRightCube, this.texBackCube, this.texLeftCube, this.texBottomCube);
         
         this.texTest = new CGFtexture(this, 'images/texture.jpg');
@@ -127,10 +141,10 @@ export class MyScene extends CGFscene {
         this.displayCylinder = false;
         this.displaySphere = false;
         this.displayMVObj = false;
-        this.selectedTexture = 1;
+        this.selectedTexture = 3;
         this.scaleFactor = 1;
         this.speedFactor = 1;
-        this.skyBoxTexture = { 'Test Cubemap': 0, 'Demo Cubemap': 1, 'Space Cubemap': 2 };
+        this.skyBoxTexture = { 'Test Cubemap': 0, 'Demo Cubemap': 1, 'Space Cubemap': 2, 'UnderWater Day': 3, 'Underwater Night': 4};
     }
     initLights() {
         this.lights[0].setPosition(15, 2, 5, 1);
@@ -157,7 +171,12 @@ export class MyScene extends CGFscene {
         if(t > 0){
             this.movingObject.update(t - this.lastUpdate);
             this.mainFish.update(t - this.lastUpdate);
-            this.waterSurface.update(t);
+
+            this.night = 0;
+            if(this.selectedTexture == 4 || this.selectedTexture == 2)
+                this.night = 1;
+
+            this.waterSurface.update(t, this.night);
         }
         
         this.lastUpdate = t;
@@ -202,7 +221,7 @@ export class MyScene extends CGFscene {
             this.popMatrix();
         }
 
-        if(this.selectedTexture == 0){
+        if(this.selectedTexture == 0){ //test cubemap
             this.quadBKText = this.texBackCube;
             this.quadBTText = this.texBottomCube;
             this.quadFText = this.texFrontCube;
@@ -210,7 +229,7 @@ export class MyScene extends CGFscene {
             this.quadRText = this.texRightCube;
             this.quadTText = this.texTopCube;
         }
-        if(this.selectedTexture == 1){
+        if(this.selectedTexture == 1){ //demo cubemap
             this.quadBKText = this.texBackCubeD;
             this.quadBTText = this.texBottomCubeD;
             this.quadFText = this.texFrontCubeD;
@@ -218,14 +237,30 @@ export class MyScene extends CGFscene {
             this.quadRText = this.texRightCubeD;
             this.quadTText = this.texTopCubeD;
        }
-       if(this.selectedTexture == 2){
+       if(this.selectedTexture == 2){ //space cubemap
             this.quadBKText = this.texBackCubeS;
             this.quadBTText = this.texBottomCubeS;
             this.quadFText = this.texFrontCubeS;
             this.quadLText = this.texLeftCubeS;
             this.quadRText = this.texRightCubeS;
             this.quadTText = this.texTopCubeS;
-   }
+        }
+        if(this.selectedTexture == 3){ //underwater day cubemap
+            this.quadBKText = this.texUW1Back;
+            this.quadBTText = this.texUW1Bottom;
+            this.quadFText = this.texUW1Front;
+            this.quadLText = this.texUW1Left;
+            this.quadRText = this.texUW1Right;
+            this.quadTText = this.texUW1Top;
+        }
+        if(this.selectedTexture == 4){ //underwater night cubemap
+            this.quadBKText = this.texUW2Back;
+            this.quadBTText = this.texUW2Bottom;
+            this.quadFText = this.texUW2Front;
+            this.quadLText = this.texUW2Left;
+            this.quadRText = this.texUW2Right;
+            this.quadTText = this.texUW2Top;
+        }
 
         this.cubeMap.display();
 
