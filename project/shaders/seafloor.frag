@@ -15,12 +15,12 @@ uniform float nestRadius;
 
 void main() {
 	vec4 color = texture2D(uSampler, vTextureCoord);
-    color *= texture2D(uSampler2, vTextureCoord) * 2.0;
+    color *= (texture2D(uSampler2, vTextureCoord) + 1.5) / 2.5;
 
     vec4 temp_color;
     if (coords.x >= nestX && coords.z >= nestZ && coords.x < nestX + nestRadius && coords.z < nestZ + nestRadius) {
         temp_color =  texture2D(uSampler3, vec2((coords.x - nestX)/nestRadius, (coords.z - nestZ)/nestRadius));
-        if (temp_color.a != 0.0) color = temp_color;
+        if (temp_color.a != 0.0) discard;
     }
 
     gl_FragColor = color;

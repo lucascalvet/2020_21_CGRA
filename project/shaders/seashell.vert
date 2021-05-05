@@ -10,22 +10,20 @@ varying vec2 vTextureCoord;
 varying vec3 coords;
 
 uniform sampler2D uSampler2;
+uniform sampler2D uSampler3;
+
+uniform float maxHeight;
+uniform float nestX;
+uniform float nestZ;
+uniform float nestRadius;
+uniform float length;
 
 void main() {
-    //vec3 offset;
+    vec3 offset;
 
     vTextureCoord = aTextureCoord;
-    /*
-    offset = aVertexNormal * texture2D(uSampler2, vTextureCoord).r * 2.0 * maxHeight;
 
     coords = aVertexPosition;
-    vec4 temp_color;
-    if (coords.x >= nestX && coords.z >= nestZ && coords.x < nestX + nestRadius && coords.z < nestZ + nestRadius) {
-        temp_color =  texture2D(uSampler3, vec2((coords.x - nestX)/nestRadius, (coords.z - nestZ)/nestRadius));
-        if (temp_color.a != 0.0) {
-            offset = aVertexNormal * 2.0 * texture2D(uSampler4, vec2((coords.x - nestX)/nestRadius, (coords.z - nestZ)/nestRadius)).r;
-        }
-    }
-*/
-    gl_Position = uPMatrix * uMVMatrix * vec4(aVertexPosition, 1.0);
+    offset = aVertexNormal * (texture2D(uSampler2, vTextureCoord).r - 1.0 + (texture2D(uSampler3, vec2((length/2.0 + coords.x)/length, (length/2.0 + coords.z)/length)).r * maxHeight));
+    gl_Position = uPMatrix * uMVMatrix * vec4(aVertexPosition + offset, 1.0);
 }

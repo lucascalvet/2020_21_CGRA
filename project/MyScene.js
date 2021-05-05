@@ -5,8 +5,8 @@ import { MyCubeMap } from "./MyCubeMap.js";
 import { MyCylinder } from "./MyCylinder.js";
 import { MyFish } from "./MyFish.js";
 import { MySeaFloor } from "./MySeaFloor.js";
-import { MySeaShell } from "./MySeaShell.js";
 import { MyWaterSurf } from "./MyWaterSurf.js";
+import { MyRockSet } from "./MyRockSet.js";
 
 /**
 * MyScene
@@ -101,9 +101,9 @@ export class MyScene extends CGFscene {
 
         this.mainFish = new MyFish(this, 0.4, [1.0, 0.6863, 0.2510, 1.0]);
 
-        this.seaFloor = new MySeaFloor(this, 200, 50, 1, 1, 0, 2);
+        this.seaFloor = new MySeaFloor(this, 150, 50, 1, 10, 1, 0, 2);
 
-        this.seaShell = new MySeaShell(this, 10, 1, 0, 2);
+        this.rocks = new MyRockSet(this, 10, 10, 10, this.seaFloor.length);
 
         this.waterSurface = new MyWaterSurf(this, 200, 50, 10);
 
@@ -222,7 +222,8 @@ export class MyScene extends CGFscene {
         this.popMatrix();
 
         this.seaFloor.display();
-        this.seaShell.display();
+
+        this.rocks.display();
 
         this.waterSurface.display();
     
