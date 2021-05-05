@@ -20,6 +20,11 @@
 
 ### 2 - Sea Floor and Nest
 
+![Screenshot 2a](screenshots/proj-t03g05-2a.png)
+
+![Screenshot 2b](screenshots/proj-t03g05-2b.png)
+
+![Screenshot 2c](screenshots/proj-t03g05-2c.png)
 ### 3 - Water Surface
 
 ![Screenshot 3a](screenshots/proj-t03g05-3a.png)
@@ -28,6 +33,14 @@
 
 ### 4 - Rocks
 
-### 5 - Pillars
+![Screenshot 4a](screenshots/proj-t03g05-4a.png)
 
-<!-- Adicionar as fotos que faltam quando se decidir as cenas sobre os pilares -->
+![Screenshot 4b](screenshots/proj-t03g05-4b.png)
+
+![Screenshot 4c](screenshots/proj-t03g05-4c.png)
+### 5 - Pillars
+![Screenshot 5a](screenshots/proj-t03g05-5a.png)
+
+![Screenshot 5b](screenshots/proj-t03g05-5b.png)
+
+![Screenshot 5c](screenshots/proj-t03g05-5c.png)

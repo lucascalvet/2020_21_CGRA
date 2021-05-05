@@ -8,7 +8,6 @@ import { MySeaFloor } from "./MySeaFloor.js";
 import { MyWaterSurf } from "./MyWaterSurf.js";
 import { MyPillar } from "./MyPillar.js";
 import { MyRockSet } from "./MyRockSet.js";
-import { MySeaFloor2 } from "./MySeaFloor2.js";
 import { MyAlgaeSet } from "./MyAlgaeSet.js";
 
 /**
@@ -119,7 +118,6 @@ export class MyScene extends CGFscene {
         this.mainFish = new MyFish(this, 0.4, [1.0, 0.6863, 0.2510, 1.0]);
 
         this.seaFloor = new MySeaFloor(this, 150, 50, 1, 10, 1, 1, 2);
-        this.seaFloor2 = new MySeaFloor2(this, 250, 50, 1, 0.5, 0.5, 2);
 
         this.rocks = new MyRockSet(this, 10, 10, 100, 50);
 
@@ -149,10 +147,20 @@ export class MyScene extends CGFscene {
         this.skyBoxTexture = { 'Test Cubemap': 0, 'Demo Cubemap': 1, 'Space Cubemap': 2, 'UnderWater Day': 3, 'Underwater Night': 4};
     }
     initLights() {
+        this.setGlobalAmbientLight(0.0, 0.0, 0.0, 0.0);
+
+        //Day Light
         this.lights[0].setPosition(15, 2, 5, 1);
-        this.lights[0].setDiffuse(1.0, 1.0, 1.0, 1.0);
+        this.lights[0].setDiffuse(1.0, 1.0, 1.0, 1.0); //1.0, 1.0, 1.0, 1.0
         this.lights[0].enable();
         this.lights[0].update();
+
+        //Night Light
+        this.lights[1].setPosition(15, 2, 5, 1);
+        this.lights[1].setAmbient(0.5, 0.5, 0.55, 1.0);
+        this.lights[1].setDiffuse(0.5, 0.5, 0.55, 1.0);
+        this.lights[1].setSpecular(0.2, 0.2, 0.2, 1.0);
+        this.lights[1].update();
     }
     initCameras() {
         this.camera = new CGFcamera(1.7, 0.1, 500, vec3.fromValues(2, 2, 2), vec3.fromValues(0, 2, 0));
@@ -179,6 +187,15 @@ export class MyScene extends CGFscene {
                 this.night = 1;
 
             this.waterSurface.update(t, this.night);
+
+            if(this.night == 1){
+                this.lights[0].disable()
+                this.lights[1].enable();
+            }
+            else{
+                this.lights[1].disable()
+                this.lights[0].enable();
+            }
         }
         
         this.lastUpdate = t;
@@ -272,7 +289,6 @@ export class MyScene extends CGFscene {
         this.popMatrix();
 
         this.seaFloor.display();
-        //this.seaFloor2.display();
 
         this.rocks.display();
 
