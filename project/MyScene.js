@@ -103,7 +103,7 @@ export class MyScene extends CGFscene {
 
         this.seaFloor = new MySeaFloor(this, 150, 50, 1, 10, 1, 1, 2);
 
-        this.rocks = new MyRockSet(this, 10, 10, 10, this.seaFloor.length);
+        this.rocks = new MyRockSet(this, 10, 10, 100, 50);
 
         this.waterSurface = new MyWaterSurf(this, 200, 50, 10);
 
