@@ -16,7 +16,7 @@ export class MyRockSet extends CGFobject {
 		this.rock = new MyRock(this.scene, slices, stacks);
 		this.nrRocks = nrRocks;
 		this.pos = [];
-		this.scale = []
+		this.scale = [];
 		for (let i = 0; i < this.nrRocks; i++) {
 			this.pos.push([Math.random() * length - length/2, Math.random() * length - length/2]);
 			this.scale.push([(Math.random() + 1) / 2, (Math.random() + 1) / 2, (Math.random() + 1) / 2]);
@@ -26,9 +26,9 @@ export class MyRockSet extends CGFobject {
 	display() {
 		for (let i = 0; i < this.nrRocks; i++) {
 			this.scene.pushMatrix();
-			this.scene.translate(this.pos[i][0], 0.8, this.pos[i][1]);
-			this.scene.scale(this.scale[i][0], this.scale[i][1], this.scale[i][2])
-			this.scene.scale(0.3, 0.3, 0.3);
+			this.scene.translate(this.pos[i][0], 0.7, this.pos[i][1]);
+			this.scene.scale(this.scale[i][0], this.scale[i][1], this.scale[i][2]);
+			this.scene.scale(0.5, 0.5, 0.5);
 			this.rock.display();
 			this.scene.popMatrix();
 		}

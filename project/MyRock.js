@@ -96,5 +96,6 @@ export class MyRock extends CGFobject {
   display() {
     this.appearance.apply();
     super.display();
+    this.scene.defaultAppearance.apply();
   }
 }
