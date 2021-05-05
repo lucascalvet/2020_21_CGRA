@@ -11,15 +11,25 @@ import { MyPyramid } from './MyPyramid.js';
  * @param length - the length of the sea floor
 */
 export class MyAlgaeSet extends CGFobject {
-	constructor(scene, slices, stacks, nrAlgae, length) {
+	constructor(scene, slices, stacks, nrClusters, length) {
 		super(scene);
 		this.algae = new MyPyramid(this.scene, slices, stacks);
-		this.nrAlgae = nrAlgae;
+		this.nrClusters = nrClusters;
+		this.nrAlgae = 0;
 		this.pos = [];
 		this.scale = [];
-		for (let i = 0; i < this.nrAlgae; i++) {
-			this.pos.push([Math.random() * length - length/2, Math.random() * length - length/2]);
+		var pos;
+		for (let i = 0; i < this.nrClusters; i++) {
+			pos = [Math.random() * length - length/2, Math.random() * length - length/2];
 			this.scale.push((Math.random() * 4) + 1);
+			this.pos.push(pos);
+			var number = Math.floor(Math.random()*4 + 1);
+			for (let j = 0; j < number; j++) {
+				this.scale.push((Math.random() * 4) + 1);
+				this.pos.push([pos[0] + j, pos[1] - j]);				
+			}
+
+			this.nrAlgae += number;
 		}
 
 		 // Algae Material
