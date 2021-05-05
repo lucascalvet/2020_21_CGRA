@@ -18,12 +18,13 @@ export class MyWaterSurf extends CGFobject {
 
         this.height = WaterLevel;
 
-		this.initBuffers();
 		this.shader = new CGFshader(this.scene.gl, "shaders/waterSurf.vert", "shaders/waterSurf.frag");
-		this.shader.setUniformsValues({ uSampler: 0 , uSampler1: 1});
+		this.shader.setUniformsValues({ uSampler: 0 , uSampler1: 1, uSampler2: 2, night: 0});
 
 		// Textures
-		this.pierTex = new CGFtexture(this.scene, 'images/part-b-images/pier.jpg');
+		this.pierTex = new CGFtexture(this.scene, 'images/part-b-images/pier.jpg');  //- DAY
+		this.pierTexNight = new CGFtexture(this.scene, 'images/part-b-images/pier_night.jpg'); //- NIGHT
+
 		this.waterDistMapTex = new CGFtexture(this.scene, 'images/part-b-images/distortionmap.png');
 
 		//Pier Appearence - for time cicle of the image
@@ -32,8 +33,10 @@ export class MyWaterSurf extends CGFobject {
         this.pierApp.setDiffuse(0.9, 0.9, 0.9, 1);
         this.pierApp.setSpecular(0.1, 0.1, 0.1, 1);
         this.pierApp.setShininess(10.0);
-        this.pierApp.setTexture(this.pierTex);
-        this.pierApp.setTextureWrap('CLAMP_TO_EDGE', 'CLAMP_TO_EDGE');
+		this.pierApp.setTexture(this.pierTex);
+		this.pierApp.setTextureWrap('CLAMP_TO_EDGE', 'CLAMP_TO_EDGE');
+
+		this.initBuffers();
 	}
 	initBuffers() {
 		// Generate vertices, normals, and texCoords
@@ -71,12 +74,13 @@ export class MyWaterSurf extends CGFobject {
 	}
 
 	display() {
-		this.pierTex.bind(0);
+		this.pierTex.bind(0);	
 		this.waterDistMapTex.bind(1);
+		this.pierTexNight.bind(2);
 
 		this.pierApp.apply();
-		this.scene.setActiveShader(this.shader);
 
+		this.scene.setActiveShader(this.shader);
         this.scene.pushMatrix();
         this.scene.translate(0, this.height, 0);
 		this.scene.rotate(Math.PI, 1, 0, 0);
@@ -86,7 +90,7 @@ export class MyWaterSurf extends CGFobject {
 		this.scene.setActiveShader(this.scene.defaultShader);
 	}
 
-    update(t){
-        this.shader.setUniformsValues({ timeFactor: t / 100 % 100 });
+    update(t, night){
+        this.shader.setUniformsValues({ timeFactor: t / 100 % 100 , isNight : night});
     }
 }
