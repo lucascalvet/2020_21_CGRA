@@ -26,8 +26,10 @@ void main() {
 
     coords = aVertexPosition;
 
+    vec4 temp_color;
     if (coords.x >= nestX && coords.z >= nestZ && coords.x < nestX + nestRadius && coords.z < nestZ + nestRadius) {
-        offset = offset + (aVertexNormal * (texture2D(uSampler4, vec2((coords.x - nestX)/nestRadius, (coords.z - nestZ)/nestRadius)).r - 1.0));
+        temp_color =  texture2D(uSampler3, vec2((coords.x - nestX)/nestRadius, (coords.z - nestZ)/nestRadius));
+        if (temp_color.a > 0.9) offset = offset + (aVertexNormal * (texture2D(uSampler4, vec2((coords.x - nestX)/nestRadius, (coords.z - nestZ)/nestRadius)).r - 1.0));
     }
 
     gl_Position = uPMatrix * uMVMatrix * vec4(aVertexPosition + offset, 1.0);
