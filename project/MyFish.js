@@ -64,7 +64,7 @@ export class MyFish extends CGFobject {
         this.scene.rotate(Math.PI/2, 0, 1, 0);
         //it puts the front of the fish in positive z
 
-        this.scene.body_shader.setUniformsValues({bodyHeadRatio : this.ratio , colorBody: this.body_color});
+        this.scene.body_shader.setUniformsValues({bodyHeadRatio : this.ratio , colorBody: this.body_color, isNight: this.scene.night});
 
         this.scene.scales.apply();
         this.scene.setActiveShader(this.scene.body_shader);

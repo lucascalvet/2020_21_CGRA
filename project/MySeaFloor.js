@@ -30,11 +30,17 @@ export class MySeaFloor extends CGFobject {
 	}
 
 	display() {
+
+		this.floorshader.setUniformsValues({isNight: this.scene.night});
+
 		this.sandTexture.bind(0);
 		this.sandMapTexture.bind(1);
 		this.shellTexture.bind(2);
 		this.scene.setActiveShader(this.floorshader);
 		this.seafloor.display();
+
+		this.shellshader.setUniformsValues({isNight: this.scene.night});
+
 		this.shellTexture.bind(0);
 		this.shellMapTexture.bind(1);
 		this.sandMapTexture.bind(2);
