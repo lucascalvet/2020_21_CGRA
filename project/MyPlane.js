@@ -1,29 +1,23 @@
-import { CGFobject, CGFtexture, CGFappearance, CGFshader } from '../lib/CGF.js';
+import { CGFobject } from '../lib/CGF.js';
 /**
 * MySeaFloor
 * @constructor
  * @param scene - Reference to MyScene object
  * @param nrDivs - number of divisions in both directions of the surface
+ * @param coordX - the x coordinate of the upper left vertex of the plane
+ * @param coordZ - the z coordinate of the upper left vertex of the plane
  * @param length - the length of both directions of the surface
- * @param maxHeight - the maximum height of the sea floor
 */
-export class MySeaShell extends CGFobject {
-	constructor(scene, nrDivs, coordX, coordZ, radius) {
+export class MyPlane extends CGFobject {
+	constructor(scene, nrDivs, coordX, coordZ, length) {
 		super(scene);
 		// nrDivs = 1 if not provided
 		nrDivs = typeof nrDivs !== 'undefined' ? nrDivs : 1;
 		this.nrDivs = nrDivs;
 		this.coordX = coordX;
 		this.coordZ = coordZ;
-		this.radius = radius;
-		this.patchLength = radius / nrDivs;
+		this.patchLength = length / nrDivs;
 		this.initBuffers();
-		this.shader = new CGFshader(this.scene.gl, "shaders/seashell.vert", "shaders/seashell.frag");
-		this.shader.setUniformsValues({ uSampler2: 1 });
-
-		// Textures
-		this.shellTexture = new CGFtexture(this.scene, 'images/part-b-images/seashell.png');
-		this.shellMapTexture = new CGFtexture(this.scene, 'images/part-b-images/seashellMap.png');
 	}
 	initBuffers() {
 		// Generate vertices, normals, and texCoords
@@ -58,13 +52,5 @@ export class MySeaShell extends CGFobject {
 		}
 		this.primitiveType = this.scene.gl.TRIANGLE_STRIP;
 		this.initGLBuffers();
-	}
-
-	display() {
-		this.shellTexture.bind(0);
-		this.shellMapTexture.bind(1);
-		this.scene.setActiveShader(this.shader);
-		super.display();
-		this.scene.setActiveShader(this.scene.defaultShader);
 	}
 }

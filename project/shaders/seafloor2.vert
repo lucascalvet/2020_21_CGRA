@@ -26,5 +26,9 @@ void main() {
 
     coords = aVertexPosition;
 
+    if (coords.x >= nestX && coords.z >= nestZ && coords.x < nestX + nestRadius && coords.z < nestZ + nestRadius) {
+        offset = offset + (aVertexNormal * (texture2D(uSampler4, vec2((coords.x - nestX)/nestRadius, (coords.z - nestZ)/nestRadius)).r - 1.0));
+    }
+
     gl_Position = uPMatrix * uMVMatrix * vec4(aVertexPosition + offset, 1.0);
 }
