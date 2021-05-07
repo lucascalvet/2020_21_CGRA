@@ -38,9 +38,19 @@
 ![Screenshot 4b](screenshots/proj-t03g05-4b.png)
 
 ![Screenshot 4c](screenshots/proj-t03g05-4c.png)
+
 ### 5 - Pillars
+
 ![Screenshot 5a](screenshots/proj-t03g05-5a.png)
 
 ![Screenshot 5b](screenshots/proj-t03g05-5b.png)
 
 ![Screenshot 5c](screenshots/proj-t03g05-5c.png)
+
+### 6 - Other scene elements
+
+![Screenshot 6a](screenshots/proj-t03g05-6a.png)
+
+![Screenshot 6b](screenshots/proj-t03g05-6b.png)
+
+![Screenshot 6c](screenshots/proj-t03g05-6c.png)

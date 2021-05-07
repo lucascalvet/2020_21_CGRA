@@ -2,12 +2,12 @@ import { CGFobject , CGFappearance} from '../lib/CGF.js';
 import { MyPyramid } from './MyPyramid.js';
 
 /**
-* MySeaFloor
+* MyAlgaeSet
 * @constructor
  * @param scene - Reference to MyScene object
  * @param slices - number of slices for each algae
  * @param stacks - number of stacks for each algae
- * @param nrAlgae - number of algae to be generated
+ * @param nrClusters - number of algae to be generated
  * @param length - the length of the sea floor
 */
 export class MyAlgaeSet extends CGFobject {
@@ -26,7 +26,21 @@ export class MyAlgaeSet extends CGFobject {
 			var number = Math.floor(Math.random()*4 + 1);
 			for (let j = 0; j < number; j++) {
 				this.scale.push((Math.random() * 4) + 1);
-				this.pos.push([pos[0] + j, pos[1] - j]);				
+
+				if(j % 2 == 0){
+					this.xpos = pos[0] + j; this.zpos = pos[1] - j*0.5;
+				}
+				else{
+					this.xpos = pos[0] - j * 0.5; this.zpos = pos[1] + j;
+				}
+								
+				if(this.xpos < -length/2 + 0.5) this.xpos = - length/2 + 1;
+				if(this.xpos > length/2 - 0.5) this.xpos = length/2 - 1;
+				if(this.zpos < -length/2 + 0.5) this.zpos = - length/2 + 1;
+				if(this.zpos > length/2 - 0.5) this.zpos = length/2 - 1;
+				
+				this.pos.push([this.xpos, this.zpos]);
+
 			}
 
 			this.nrAlgae += number;
@@ -38,8 +52,6 @@ export class MyAlgaeSet extends CGFobject {
 		 this.scene.algaeMat.setDiffuse(0.32, 0.73, 0.39, 1);
 		 this.scene.algaeMat.setSpecular(0.1, 0.1, 0.1, 1);
 		 this.scene.algaeMat.setShininess(10.0);
-		//  this.scene.algaeMat.loadTexture('images/part-b-images/fish_eye.png');
-		//  this.scene.algaeMat.setTextureWrap('REPEAT', 'REPEAT');
 	}
 
 	display() {
