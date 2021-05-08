@@ -91,6 +91,6 @@ export class MyWaterSurf extends CGFobject {
 	}
 
     update(t, night){
-        this.shader.setUniformsValues({ timeFactor: t / 100 % 100 , isNight : night});
+        this.shader.setUniformsValues({ timeFactor: t / 250 % 100 , isNight : night});
     }
 }

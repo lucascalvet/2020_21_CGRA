@@ -12,7 +12,7 @@ uniform float timeFactor;
 uniform int isNight;
 
 void main() {
-    vec2 offset = texture2D(uSampler1, vTextureCoord + 0.4 * sin(timeFactor/100.0)).rg - vec2(0.5, 0.5);
+    vec2 offset = texture2D(uSampler1, vTextureCoord + timeFactor/100.0).rg - vec2(0.5, 0.5);
 
     vec2 newTexCoords = vTextureCoord + offset * 0.6;
 
