@@ -9,16 +9,30 @@ import { MyRock } from './MyRock.js';
  * @param stacks - number of stacks for each rock
  * @param nrRocks - number of rocks to be generated
  * @param length - the length of the sea floor
+ * @param nestX - the x coordinate of the nest
+ * @param nestZ - the z coordinate of the nest
+ * @param nestRadius - the radius of the nest
+ * 
 */
 export class MyRockSet extends CGFobject {
-	constructor(scene, slices, stacks, nrRocks, length) {
+	constructor(scene, slices, stacks, nrRocks, length, nestX, nestZ, nestRadius) {
 		super(scene);
 		this.rock = new MyRock(this.scene, slices, stacks);
 		this.nrRocks = nrRocks;
 		this.pos = [];
 		this.scale = [];
+		var pos;
+
 		for (let i = 0; i < this.nrRocks; i++) {
-			this.pos.push([Math.random() * length - length/2, Math.random() * length - length/2]);
+			pos = [Math.random() * length - length/2, Math.random() * length - length/2];
+
+			//if location inside the nest
+			if((pos[0] >= nestX - 0.5 && pos[0] <= nestX + nestRadius + 0.5) && ((pos[1] >= nestZ - 0.5 && pos[1] <= nestX + nestRadius + 0.5)) ){
+				pos[0] += nestRadius + 1;
+				pos[1] += nestRadius + 1;
+			} 
+
+			this.pos.push(pos);
 			this.scale.push([(Math.random() + 1) / 2, (Math.random() + 1) / 2, (Math.random() + 1) / 2]);
 		}
 	}

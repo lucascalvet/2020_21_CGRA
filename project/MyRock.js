@@ -24,7 +24,6 @@ export class MyRock extends CGFobject {
   /**
    * @method initBuffers
    * Initializes the sphere buffers
-   * TODO: DEFINE TEXTURE COORDINATES
    */
   initBuffers() {
     this.vertices = [];
@@ -81,7 +80,6 @@ export class MyRock extends CGFobject {
 
         //--- Texture Coordinates
         this.texCoords.push(longitude/this.longDivs, latitude/this.latDivs);
-        // May need some additional code also in the beginning of the function.
         
       }
       phi += phiInc;
