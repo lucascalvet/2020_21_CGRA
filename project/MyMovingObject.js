@@ -1,5 +1,4 @@
 import { CGFobject, CGFappearance} from '../lib/CGF.js';
-import { MyPyramid } from "./MyPyramid.js";
 
 /**
  * MyMovingObject
@@ -7,7 +6,7 @@ import { MyPyramid } from "./MyPyramid.js";
  * @param scene - Reference to MyScene object
  */
 export class MyMovingObject extends CGFobject {
-	constructor(scene) {
+	constructor(scene, object) {
 		super(scene);
 		this.init();
         this.alpha = 0;
@@ -17,19 +16,18 @@ export class MyMovingObject extends CGFobject {
         this.z = 0;
     }
 	
-	init() {
-        this.scene.pyramid = new MyPyramid(this.scene, 4, 1);
+	init(object) {
+        this.object = object;
     }
 
     display(){
-
         this.scene.pushMatrix();
         this.scene.translate(this.x, this.y, this.z);
         this.scene.rotate(this.alpha, 0, 1, 0);
         this.scene.rotate(Math.PI/2, 1, 0, 0);
         this.scene.scale(1, 2, 1);
         this.scene.translate(0, -0.5, 0);
-        this.scene.pyramid.display();
+        this.object.display();
         this.scene.popMatrix();
     }
 

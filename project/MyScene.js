@@ -3,7 +3,9 @@ import { MySphere } from "./MySphere.js";
 import { MyMovingObject } from "./MyMovingObject.js";
 import { MyCubeMap } from "./MyCubeMap.js";
 import { MyCylinder } from "./MyCylinder.js";
+import { MyPyramid } from "./MyPyramid.js";
 import { MyFish } from "./MyFish.js";
+import { MyMovingFish } from "./MyMovingFish.js"
 import { MySeaFloor } from "./MySeaFloor.js";
 import { MyWaterSurf } from "./MyWaterSurf.js";
 import { MyPillar } from "./MyPillar.js";
@@ -38,7 +40,8 @@ export class MyScene extends CGFscene {
         //Initialize scene objects
         this.axis = new CGFaxis(this);
         this.incompleteSphere = new MySphere(this, 16, 8);
-        this.movingObject = new MyMovingObject(this);
+    
+        this.movingObject = new MyMovingObject(this, new MyPyramid(this, 4, 1));
 
         this.texBackCube = new CGFtexture(this, 'images/test_cubemap/nz.png');
         this.texBottomCube = new CGFtexture(this, 'images/test_cubemap/ny.png');
@@ -115,8 +118,6 @@ export class MyScene extends CGFscene {
 
         this.body_shader = new CGFshader(this.gl, "shaders/body.vert", "shaders/body.frag");
 
-        this.mainFish = new MyFish(this, 0.4, [1.0, 0.6863, 0.2510, 1.0]);
-
         this.nestX = 1;
         this.nestZ = 1;
         this.nestRadius = 2;
@@ -124,6 +125,9 @@ export class MyScene extends CGFscene {
         this.seaFloor = new MySeaFloor(this, 150, 50, 1, 10, this.nestX, this.nestZ, this.nestRadius);
 
         this.rocks = new MyRockSet(this, 10, 10, 100, 50, this.nestX, this.nestZ, this.nestRadius);
+
+        this.mainFish = new MyFish(this, 0.4, [1.0, 0.6863, 0.2510, 1.0]);
+        this.movingFish = new MyMovingFish(this, this.mainFish, 3, 1, 0.25, this.rocks, this.nestX, this.nestZ, this.nestRadius);
 
         this.algae = new MyAlgaeSet(this, 3, 5, 75, 50, this.nestX, this.nestZ, this.nestRadius);
 
@@ -184,7 +188,7 @@ export class MyScene extends CGFscene {
 
         if(t > 0){
             this.movingObject.update(t - this.lastUpdate);
-            this.mainFish.update(t - this.lastUpdate);
+            this.movingFish.update(t - this.lastUpdate);
 
             this.night = 0;
             if(this.selectedTexture == 4 || this.selectedTexture == 2)
@@ -287,10 +291,7 @@ export class MyScene extends CGFscene {
 
         this.cubeMap.display();
 
-        this.pushMatrix();
-        this.translate(0, 3, 0);
-        this.mainFish.display();
-        this.popMatrix();
+        this.movingFish.display();
 
         this.seaFloor.display();
 
@@ -321,30 +322,53 @@ export class MyScene extends CGFscene {
             text += " W ";
             keysPressed = true;
             this.movingObject.accelerate(0.5);
+            this.movingFish.accelerate(0.5);
         }
 
         if(this.gui.isKeyPressed("KeyS")){
             text += " S ";
             keysPressed = true;
             this.movingObject.accelerate(-0.5);
+            this.movingFish.accelerate(-0.5);
         }
 
         if(this.gui.isKeyPressed("KeyA")){
             text += " A ";
             keysPressed = true;
             this.movingObject.turn(Math.PI/16);
+            this.movingFish.turn(Math.PI/16);
         }
 
         if(this.gui.isKeyPressed("KeyD")){
             text += " D ";
             keysPressed = true;
             this.movingObject.turn(-Math.PI/16);
+            this.movingFish.turn(-Math.PI/16);
         }
 
         if(this.gui.isKeyPressed("KeyR")){
             text += " R ";
             keysPressed = true;
             this.movingObject.reset();
+            this.movingFish.reset();
+        }
+
+        if(this.gui.isKeyPressed("KeyP")){
+            text += " P ";
+            keysPressed = true;
+            this.movingFish.up();
+        }
+
+        if(this.gui.isKeyPressed("KeyL")){
+            text += " L ";
+            keysPressed = true;
+            this.movingFish.down();
+        }
+
+        if(this.gui.isKeyPressed("KeyC")){
+            text += " C ";
+            keysPressed = true;
+            this.movingFish.interact();
         }
 
         if(keysPressed)

@@ -35,13 +35,11 @@ export class MyCubeMap extends CGFobject {
 
     display() {
         //Face Frente
-        if(this.scene.useNearest) this.scene.gl.texParameteri(this.scene.gl.TEXTURE_2D, this.scene.gl.TEXTURE_MAG_FILTER, this.scene.gl.NEAREST);
-        else this.scene.gl.texParameteri(this.scene.gl.TEXTURE_2D, this.scene.gl.TEXTURE_MAG_FILTER, this.scene.gl.LINEAR);
-
         if (this.scene.quadFTex !== 'undefined')
             this.scene.CquadMaterial.setTexture(this.scene.quadFText);
         else
             this.scene.CquadMaterial.setTexture(null);
+
         this.scene.CquadMaterial.apply();
         this.scene.pushMatrix();
         this.scene.translate(this.scene.camera.position[0], this.scene.camera.position[1], this.scene.camera.position[2]);
@@ -52,13 +50,11 @@ export class MyCubeMap extends CGFobject {
         this.scene.popMatrix();
 
         //Face Baixo
-        if(this.scene.useNearest) this.scene.gl.texParameteri(this.scene.gl.TEXTURE_2D, this.scene.gl.TEXTURE_MAG_FILTER, this.scene.gl.NEAREST);
-        else this.scene.gl.texParameteri(this.scene.gl.TEXTURE_2D, this.scene.gl.TEXTURE_MAG_FILTER, this.scene.gl.LINEAR);
-
         if (this.scene.quadBTText !== 'undefined')
             this.scene.CquadMaterial.setTexture(this.scene.quadBTText);
         else
             this.scene.CquadMaterial.setTexture(null);
+
         this.scene.CquadMaterial.apply();
         this.scene.pushMatrix();
         this.scene.translate(this.scene.camera.position[0], this.scene.camera.position[1], this.scene.camera.position[2]);
@@ -69,13 +65,11 @@ export class MyCubeMap extends CGFobject {
         this.scene.popMatrix();
 
         //Face Esquerda
-        if(this.scene.useNearest) this.scene.gl.texParameteri(this.scene.gl.TEXTURE_2D, this.scene.gl.TEXTURE_MAG_FILTER, this.scene.gl.NEAREST);
-        else this.scene.gl.texParameteri(this.scene.gl.TEXTURE_2D, this.scene.gl.TEXTURE_MAG_FILTER, this.scene.gl.LINEAR);
-        
         if (this.scene.quadLText !== 'undefined')
             this.scene.CquadMaterial.setTexture(this.scene.quadLText);
         else
             this.scene.CquadMaterial.setTexture(null);
+
         this.scene.CquadMaterial.apply();
         this.scene.pushMatrix();
         this.scene.translate(this.scene.camera.position[0], this.scene.camera.position[1], this.scene.camera.position[2]);
@@ -86,13 +80,11 @@ export class MyCubeMap extends CGFobject {
         this.scene.popMatrix();
 
         //Face Trás
-        if(this.scene.useNearest) this.scene.gl.texParameteri(this.scene.gl.TEXTURE_2D, this.scene.gl.TEXTURE_MAG_FILTER, this.scene.gl.NEAREST);
-        else this.scene.gl.texParameteri(this.scene.gl.TEXTURE_2D, this.scene.gl.TEXTURE_MAG_FILTER, this.scene.gl.LINEAR);
-        
         if (this.scene.quadBKText !== 'undefined')
             this.scene.CquadMaterial.setTexture(this.scene.quadBKText);
         else
             this.scene.CquadMaterial.setTexture(null);
+
         this.scene.CquadMaterial.apply();
         this.scene.pushMatrix();
         this.scene.translate(this.scene.camera.position[0], this.scene.camera.position[1], this.scene.camera.position[2]);
@@ -102,12 +94,11 @@ export class MyCubeMap extends CGFobject {
         this.scene.popMatrix();
 
         //Face Cima
-        if(this.scene.useNearest) this.scene.gl.texParameteri(this.scene.gl.TEXTURE_2D, this.scene.gl.TEXTURE_MAG_FILTER, this.scene.gl.NEAREST);
-        else this.scene.gl.texParameteri(this.scene.gl.TEXTURE_2D, this.scene.gl.TEXTURE_MAG_FILTER, this.scene.gl.LINEAR);
         if (this.scene.quadTText !== 'undefined')
             this.scene.CquadMaterial.setTexture(this.scene.quadTText);
         else
             this.scene.CquadMaterial.setTexture(null);
+
         this.scene.CquadMaterial.apply();
         this.scene.pushMatrix();
         this.scene.translate(this.scene.camera.position[0], this.scene.camera.position[1], this.scene.camera.position[2]);
@@ -118,13 +109,11 @@ export class MyCubeMap extends CGFobject {
         this.scene.popMatrix();
 
         //Face Direita
-        if(this.scene.useNearest) this.scene.gl.texParameteri(this.scene.gl.TEXTURE_2D, this.scene.gl.TEXTURE_MAG_FILTER, this.scene.gl.NEAREST);
-        else this.scene.gl.texParameteri(this.scene.gl.TEXTURE_2D, this.scene.gl.TEXTURE_MAG_FILTER, this.scene.gl.LINEAR);
-
         if (this.scene.quadRText !== 'undefined')
             this.scene.CquadMaterial.setTexture(this.scene.quadRText);
         else
             this.scene.CquadMaterial.setTexture(null);
+
         this.scene.CquadMaterial.apply();
         this.scene.pushMatrix();
         this.scene.translate(this.scene.camera.position[0], this.scene.camera.position[1], this.scene.camera.position[2]);

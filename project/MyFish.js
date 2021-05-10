@@ -14,9 +14,11 @@ export class MyFish extends CGFobject {
         this.ratio = bodyRatio;
         this.body_color = color;
 
-        this.alpha = Math.PI/6; //Left & Right Fin Angles
+        this.alphaLeft = Math.PI/6; //Left Fin Angle
+        this.alphaRight = Math.PI/6; //Right Fin Angle
         this.theta = 0; //Tail Angle
-        this.up = true;
+        this.upLeft = true;
+        this.upRight = true;
         this.right = true;
         
 		this.init();
@@ -73,8 +75,6 @@ export class MyFish extends CGFobject {
         this.scene.body.display();
         this.scene.popMatrix();
 
-        //rever como está o shader
-
         this.scene.setActiveShader(this.scene.defaultShader);
 
         this.scene.eye_tex.apply();
@@ -114,7 +114,7 @@ export class MyFish extends CGFobject {
         this.scene.pushMatrix();
         this.scene.translate(-0.03, -0.01, 0.1225);
         this.scene.scale(0.05, 0.05, 0.05);
-        this.scene.rotate(-this.alpha, 1, 0, 0);
+        this.scene.rotate(-this.alphaLeft, 1, 0, 0);
         this.scene.translate(1, -1, 0);
         this.scene.left_fin.display();
         this.scene.popMatrix();
@@ -122,36 +122,60 @@ export class MyFish extends CGFobject {
         this.scene.pushMatrix();
         this.scene.translate(-0.03, -0.01, -0.1225);
         this.scene.scale(0.05, 0.05, 0.05);
-        this.scene.rotate(this.alpha, 1, 0, 0);
+        this.scene.rotate(this.alphaRight, 1, 0, 0);
         this.scene.translate(1, -1, 0);
         this.scene.right_fin.display();
         this.scene.popMatrix();
         
         this.scene.popMatrix();
+        
     }
 
-    update(t){
+    update(t, velocity, turnState){
 
-        //fin animation
-        if(this.up)
-            this.alpha += Math.sin(t/1000.0);
-        else
-            this.alpha -= Math.sin(t/1000.0);
-            
-        if(this.alpha >= Math.PI/3){
-            this.alpha %= Math.PI/3 + 0.1 ;
-            this.up = false;
+        //left fin animation
+        if (turnState != "left") {
+
+            if (this.upLeft)
+                this.alphaLeft += Math.sin(t / 1000.0);
+            else
+                this.alphaLeft -= Math.sin(t / 1000.0);
+
+            if (this.alphaLeft >= Math.PI / 3) {
+                this.alphaLeft %= Math.PI / 3 + 0.1;
+                this.upLeft = false;
+            }
+
+            if (this.alphaLeft <= Math.PI / 15) {
+                this.upLeft = true;
+            }
         }
 
-        if(this.alpha <= Math.PI/15){
-            this.up = true;
+        //right fin animation
+        if (turnState != "right") {
+            if (this.upRight)
+                this.alphaRight += Math.sin(t / 1000.0);
+            else
+                this.alphaRight -= Math.sin(t / 1000.0);
+
+            if (this.alphaRight >= Math.PI / 3) {
+                this.alphaRight %= Math.PI / 3 + 0.1;
+                this.upRight = false;
+            }
+
+            if (this.alphaRight <= Math.PI / 15) {
+                this.upRight = true;
+            }
         }
+
+        if(turnState == "idle")
+            this.alphaLeft = this.alphaRight;
 
         //tail animation
         if(this.right)
-            this.theta += Math.sin(t/550.0);
+            this.theta += (velocity + 1.0) * Math.sin(t/550.0);
         else
-            this.theta -= Math.sin(t/550.0);
+            this.theta -= (velocity + 1.0) * Math.sin(t/550.0);
         
         if(this.theta >= 0.35){
             this.theta %= 1.92 + 0.1 ;
