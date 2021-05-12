@@ -18,10 +18,13 @@ export class MySeaFloor extends CGFobject {
 		super(scene);
 		this.seafloor = new MyPlane(scene, nrDivs, -length/2, -length/2, length);
 		this.seashell = new MyPlane(scene, nrDivsNest, nestX, nestZ, nestRadius);
+
 		this.floorshader = new CGFshader(this.scene.gl, "shaders/seafloor.vert", "shaders/seafloor.frag");
 		this.floorshader.setUniformsValues({ uSampler2: 1, uSampler3: 2, maxHeight: maxHeight, nestX: nestX, nestZ: nestZ, nestRadius: nestRadius});
 		this.shellshader = new CGFshader(this.scene.gl, "shaders/seashell.vert", "shaders/seashell.frag");
-		this.floorshader.setUniformsValues({ uSampler2: 1, uSampler3: 2, maxHeight: maxHeight, length: length, nestX: nestX, nestZ: nestZ, nestRadius: nestRadius});
+
+		//this.floorshader.setUniformsValues({ uSampler2: 1, uSampler3: 2, maxHeight: maxHeight, length: length, nestX: nestX, nestZ: nestZ, nestRadius: nestRadius});
+		
 		// Textures
 		this.sandTexture = new CGFtexture(this.scene, 'images/part-b-images/sand.png');
 		this.sandMapTexture = new CGFtexture(this.scene, 'images/part-b-images/sandMapCustom.png');
@@ -47,5 +50,6 @@ export class MySeaFloor extends CGFobject {
 		this.scene.setActiveShader(this.shellshader);
 		this.seashell.display();
 		this.scene.setActiveShader(this.scene.defaultShader);
+
 	}
 }

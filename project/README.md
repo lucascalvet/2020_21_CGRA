@@ -54,3 +54,13 @@
 ![Screenshot 6b](screenshots/proj-t03g05-6b.png)
 
 ![Screenshot 6c](screenshots/proj-t03g05-6c.png)
+
+### 7 - Fish Interaction with rocks
+
+![Screenshot 7a](screenshots/proj-t03g05-7a.png)
+
+![Screenshot 7b](screenshots/proj-t03g05-7b.png)
+
+![Screenshot 7c](screenshots/proj-t03g05-7c.png)
+
+![Screenshot 7d](screenshots/proj-t03g05-7d.png)

@@ -124,7 +124,7 @@ export class MyScene extends CGFscene {
 
         this.seaFloor = new MySeaFloor(this, 150, 50, 1, 10, this.nestX, this.nestZ, this.nestRadius);
 
-        this.rocks = new MyRockSet(this, 10, 10, 100, 50, this.nestX, this.nestZ, this.nestRadius);
+        this.rocks = new MyRockSet(this, 10, 10, 200, 50, this.nestX, this.nestZ, this.nestRadius);
 
         this.mainFish = new MyFish(this, 0.4, [1.0, 0.6863, 0.2510, 1.0]);
         this.movingFish = new MyMovingFish(this, this.mainFish, 3, 1, 0.25, this.rocks, this.nestX, this.nestZ, this.nestRadius);

@@ -26,7 +26,7 @@ export class MyAlgaeSet extends CGFobject {
 			pos = [Math.random() * length - length/2, Math.random() * length - length/2];
 
 			//if location inside the nest
-			if((pos[0] >= nestX - 0.5 && pos[0] <= nestX + nestRadius + 0.5) && ((pos[1] >= nestZ - 0.5 && pos[1] <= nestX + nestRadius + 0.5)) ){
+			if((pos[0] >= nestX - 0.5 && pos[0] <= nestX + nestRadius + 0.5) && ((pos[1] >= nestZ - 0.5 && pos[1] <= nestZ + nestRadius + 0.5)) ){
 				pos[0] += nestRadius + 1;
 				pos[1] += nestRadius + 1;
 			} 

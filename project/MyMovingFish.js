@@ -33,8 +33,9 @@ export class MyMovingFish extends MyMovingObject {
         this.fishRock = -1;
         this.rockSet = rockSet;
 
-        this.centerXNest = (nestX + nestRadius);
-        this.centerZNest = (nestZ + nestRadius);
+        this.nestX = nestX;
+        this.nestZ = nestZ;
+        this.nestR = nestRadius;
     }
 	
 	init(fish) {
@@ -69,8 +70,10 @@ export class MyMovingFish extends MyMovingObject {
             }
         }
 
-        if(this.fishRock != -1)
-            this.rockSet.fishRockPos = [this.x + Math.sin(this.alpha) * 0.7 + 0.3, this.y - 0.1, this.z + Math.cos(this.alpha) * 0.7 + 0.3];
+        if(this.rockState == ROCKSTATES.ROCK)
+            this.rockSet.fishRockPos = [this.x + Math.sin(this.alpha) * 0.4, this.y - 0.1, this.z + Math.cos(this.alpha) * 0.4];
+        else
+            this.rockSet.fishRockPos = [];
 
         this.object.update(t, this.velocity, this.turnState);
         this.turnState = TURNSTATES.IDLE;
@@ -99,28 +102,47 @@ export class MyMovingFish extends MyMovingObject {
 
         //Catch Rock
         if(this.rockState != ROCKSTATES.ROCK && this.y == this.minLimit){
-                var dist;
-                var minDist = 9999;
-                for (let i = 0; i < this.rockSet.nrRocks; i++) {
-                    dist = Math.sqrt(Math.pow(this.x - this.rockSet.positions[i][0], 2) + Math.pow(this.y - this.rockSet.positions[i][1], 2));
-                    if (dist < minDist) {
+            var dist;
+            var minDist = 9999;
+
+            for (let i = 0; i < this.rockSet.nrRocks; i++) {
+                let rockFoundNest = false;
+                dist = Math.sqrt(Math.pow(this.x - this.rockSet.positions[i][0], 2) + Math.pow(this.z - this.rockSet.positions[i][1], 2));
+                
+                if (dist < minDist) {
+
+                    //check if rock not in nest
+                    for (let k = 0; k < this.rockSet.numNestRocks; k++){
+                        if (i == this.rockSet.nestRocksIdxs[k]) {
+                            rockFoundNest = true;
+                            break;
+                        }
+                    }
+    
+                    if(!rockFoundNest){
                         minDist = dist;
-                        this.fishRock = i;
+                        if (minDist <= 1.5) {
+                            this.fishRock = i;
+                        }
                     }
                 }
-                if (this.fishRock != -1) {
-                    this.rockSet.fishRockIdx = this.fishRock;
-                    this.rockState = ROCKSTATES.ROCK; 
-                }
+            }
+            if (this.fishRock != -1) {
+                this.rockSet.fishRockIdx = this.fishRock;
+                this.rockState = ROCKSTATES.ROCK; 
+            }
         }
         else if(this.rockState == ROCKSTATES.ROCK && this.y == this.minLimit){ //Drop Rock
-            this.fishRock = -1;
-            this.rockSet.fishRockIdx = this.fishRock;
-            this.rockState = ROCKSTATES.NOROCK;
+            if((this.rockSet.fishRockPos[0] >= this.nestX && this.rockSet.fishRockPos[0] <= this.nestX + this.nestR) && (this.rockSet.fishRockPos[2] >= this.nestZ && this.rockSet.fishRockPos[2] <= this.nestZ + this.nestR)){
+                if(this.rockSet.numNestRocks < this.rockSet.maxRocksNest){
+                    this.rockSet.numNestRocks++;
+                    this.rockSet.nestRocksIdxs.push(this.fishRock);
 
-            // if((this.x >= this.centerXNest - nestRadius && this.x <= this.centerXNest + nestRadius) && (this.z >= this.centerZNest - nestRadius && this.z <= this.centerZNest + nestRadius)){
-                
-            // }
+                    this.fishRock = -1;
+                    this.rockSet.fishRockIdx = this.fishRock;
+                    this.rockState = ROCKSTATES.NOROCK;
+                }
+            }
         }
     }
 
