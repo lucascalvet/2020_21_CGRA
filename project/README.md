@@ -9,6 +9,17 @@
 - In exercise 1 we observed X
 - In exercise 2 we had difficulties in Y
 
+Ideias para escever nesta parte: 
+- Falar das dificuldades em ter a WaterSurf sem o "loop quebrado"
+- Arranjar os melhores valores para a aleatoriedade das rochas e das algas
+- Falar da maneira como temos a opção de noite e dia na nossa cena
+
+For the 7th point of the Part B of the Project we implemented:
+
+- 7.1 - "Algas";
+- 7.5 - "MyAnimatedFish - Animação de outros peixes"; -> in progress
+- 7.6 - "Shader do Peixe Melhorado" -> in progress
+
 ## Screenshots
 ### 1 - MyFish
 
@@ -64,3 +75,6 @@
 ![Screenshot 7c](screenshots/proj-t03g05-7c.png)
 
 ![Screenshot 7d](screenshots/proj-t03g05-7d.png)
+
+
+### 8 - Addicional Functionalities

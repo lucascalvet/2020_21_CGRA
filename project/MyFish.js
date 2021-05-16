@@ -52,11 +52,11 @@ export class MyFish extends CGFobject {
         this.scene.eye_tex.setTextureWrap('REPEAT', 'REPEAT');
   
         //Fish Color Material
-        this.scene.fish_color = new CGFappearance(this.scene);
-        this.scene.fish_color.setAmbient(this.body_color[0], this.body_color[1], this.body_color[2], this.body_color[3]);
-        this.scene.fish_color.setDiffuse(this.body_color[0], this.body_color[1], this.body_color[2], this.body_color[3]);
-        this.scene.fish_color.setSpecular(this.body_color[0], this.body_color[1], this.body_color[2], this.body_color[3]);
-        this.scene.fish_color.setShininess(10.0);
+        this.fish_color = new CGFappearance(this.scene);
+        this.fish_color.setAmbient(this.body_color[0], this.body_color[1], this.body_color[2], this.body_color[3]);
+        this.fish_color.setDiffuse(this.body_color[0], this.body_color[1], this.body_color[2], this.body_color[3]);
+        this.fish_color.setSpecular(this.body_color[0], this.body_color[1], this.body_color[2], this.body_color[3]);
+        this.fish_color.setShininess(10.0);
     }
 
     display() {
@@ -92,7 +92,7 @@ export class MyFish extends CGFobject {
         this.scene.right_eye.display();
         this.scene.popMatrix();
 
-        this.scene.fish_color.apply();
+        this.fish_color.apply();
 
         this.scene.pushMatrix();
         this.scene.translate(0.05, 0.175, 0);

@@ -11,6 +11,7 @@ import { MyWaterSurf } from "./MyWaterSurf.js";
 import { MyPillar } from "./MyPillar.js";
 import { MyRockSet } from "./MyRockSet.js";
 import { MyAlgaeSet } from "./MyAlgaeSet.js";
+import { MyAnimatedFish } from "./MyAnimatedFish.js";
 
 /**
 * MyScene
@@ -141,6 +142,9 @@ export class MyScene extends CGFscene {
         this.pillar6 = new MyPillar(this, 15, 0, -3.5, 0.25, 12);
         this.pillar7 = new MyPillar(this, 20, 0, 0, 0.25, 12);
         this.pillar8 = new MyPillar(this, 20, 0, -3.5, 0.25, 12);
+
+        this.fish2 = new MyAnimatedFish(this, 0.5, [0.75, 0.3, 0.4, 1.0], 4, 10, 5, 0);
+        this.fish3 = new MyAnimatedFish(this, 0.35, [0.6, 0.6, 0.4, 1.0], 2.5, -5, 7, 0);
 
         this.lastUpdate = 0;
 
@@ -309,6 +313,9 @@ export class MyScene extends CGFscene {
         this.pillar6.display();
         this.pillar7.display();
         this.pillar8.display();
+
+        this.fish2.display();
+        this.fish3.display();
         
         // ---- END Primitive drawing section
     }
