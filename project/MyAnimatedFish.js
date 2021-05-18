@@ -16,14 +16,20 @@ Object.freeze(TURNSTATES);
 
         this.init(new MyFish(scene, bodyRatio, color));
         this.y = yHeight;
-        this.x = xCenterMov;
-        this.z = zCenterMov;
-
+    
         this.PMov = PeriodMov;
-        this.alpha = 0;
-        this.velocity = 0;
+        this.radiusTraj = 5;
+        this.theta = 0;
+        this.turnState = TURNSTATES.LEFT;
 
-        this.turnState = TURNSTATES.IDLE;
+        this.xC = xCenterMov;
+        this.zC = zCenterMov;
+    
+        this.x = this.xC;
+        this.z = this.zC + this.radiusTraj;
+
+        this.alpha = Math.PI/2;
+        this.velocity = 2 * Math.PI * this.radiusTraj/this.PMov/1000;;
     }
 
     
@@ -37,20 +43,24 @@ Object.freeze(TURNSTATES);
         this.scene.rotate(this.alpha, 0, 1, 0);
         this.object.display();
         this.scene.popMatrix();
+
+        console.log("POS x : " + this.x + "POS y : " + this.y + "POS z : " + this.z );
     }
 
     update(t){
+        this.th_Intv = 2 * Math.PI/this.PMov * t/1000 * this.scene.speedFactor;
+
+        if(this.turnState == TURNSTATES.LEFT)
+            this.turn(this.th_Intv);
+        else if (this.turnState == TURNSTATES.RIGHT)
+            this.turn(-this.th_Intv);
+
+        //update theta
+        this.theta += this.th_Intv;
+
+        this.x = this.xC + this.radiusTraj * Math.sin(this.theta);
+        this.z = this.zC + this.radiusTraj * Math.cos(this.theta);
 
         this.object.update(t, this.velocity, this.turnState);
-        this.turnState = TURNSTATES.IDLE;
     }
-
-    turn(val){
-
-        if(val > 0)
-            this.turnState = TURNSTATES.LEFT;
-        else if( val < 0)
-            this.turnState = TURNSTATES.RIGHT;
-    }
-
 }

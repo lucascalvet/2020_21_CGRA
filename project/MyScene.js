@@ -143,8 +143,9 @@ export class MyScene extends CGFscene {
         this.pillar7 = new MyPillar(this, 20, 0, 0, 0.25, 12);
         this.pillar8 = new MyPillar(this, 20, 0, -3.5, 0.25, 12);
 
-        this.fish2 = new MyAnimatedFish(this, 0.5, [0.75, 0.3, 0.4, 1.0], 4, 10, 5, 0);
-        this.fish3 = new MyAnimatedFish(this, 0.35, [0.6, 0.6, 0.4, 1.0], 2.5, -5, 7, 0);
+        this.fish2 = new MyAnimatedFish(this, 0.5, [0.75, 0.3, 0.4, 1.0], 4, 10, 5, 3);
+        this.fish3 = new MyAnimatedFish(this, 0.35, [0.6, 0.6, 0.4, 1.0], 2.5, -5, 7, 6);
+        this.fish4 = new MyAnimatedFish(this, 0.45, [1.0, 0.96, 0.34, 1.0], 3.5, 2, -3, 10);
 
         this.lastUpdate = 0;
 
@@ -193,6 +194,10 @@ export class MyScene extends CGFscene {
         if(t > 0){
             this.movingObject.update(t - this.lastUpdate);
             this.movingFish.update(t - this.lastUpdate);
+
+            this.fish2.update(t - this.lastUpdate);
+            this.fish3.update(t - this.lastUpdate);
+            this.fish4.update(t - this.lastUpdate);
 
             this.night = 0;
             if(this.selectedTexture == 4 || this.selectedTexture == 2)
@@ -316,6 +321,7 @@ export class MyScene extends CGFscene {
 
         this.fish2.display();
         this.fish3.display();
+        this.fish4.display();
         
         // ---- END Primitive drawing section
     }
