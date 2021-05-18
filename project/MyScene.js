@@ -147,9 +147,9 @@ export class MyScene extends CGFscene {
         this.numAnimFish = 4;
 
         for(let fish = 0; fish < this.numAnimFish; fish++){
-            this.fishX = (Math.random() * 40 - 15); //random number between -40 and 40
+            this.fishX = (Math.random() * 40 - 20); //random number between -20 and 20
             this.fishY = (Math.random() * (5 - 2.5) + 2.5).toFixed(2); //Random Number between 2.5 and 5
-            this.fishZ = (Math.random() * 40 - 15); //random number between -40 and 40
+            this.fishZ = (Math.random() * 40 - 20); //random number between -20 and 20
 
             this.period = (Math.random() * (10 - 2) + 2).toFixed(2); //random number between 2 and 10 (secs)
 
