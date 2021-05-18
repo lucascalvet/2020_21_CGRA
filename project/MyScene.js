@@ -143,14 +143,33 @@ export class MyScene extends CGFscene {
         this.pillar7 = new MyPillar(this, 20, 0, 0, 0.25, 12);
         this.pillar8 = new MyPillar(this, 20, 0, -3.5, 0.25, 12);
 
-        this.fish2 = new MyAnimatedFish(this, 0.5, [0.75, 0.3, 0.4, 1.0], 4, 10, 5, 3);
-        this.fish3 = new MyAnimatedFish(this, 0.35, [0.6, 0.6, 0.4, 1.0], 2.5, -5, 7, 6);
-        this.fish4 = new MyAnimatedFish(this, 0.45, [1.0, 0.96, 0.34, 1.0], 3.5, 2, -3, 10);
+        this.moreFish = [];
+        this.numAnimFish = 4;
+
+        for(let fish = 0; fish < this.numAnimFish; fish++){
+            this.fishX = (Math.random() * 40 - 15); //random number between -40 and 40
+            this.fishY = (Math.random() * (5 - 2.5) + 2.5).toFixed(2); //Random Number between 2.5 and 5
+            this.fishZ = (Math.random() * 40 - 15); //random number between -40 and 40
+
+            this.period = (Math.random() * (10 - 2) + 2).toFixed(2); //random number between 2 and 10 (secs)
+
+            this.bRatio = (Math.random() * (0.65 - 0.35) + 0.35).toFixed(2); //random number between 0.35 and 0.65
+
+            this.r = (Math.random()).toFixed(2); //random number between 0 and 1
+            this.g = (Math.random()).toFixed(2); //random number between 0 and 1
+            this.b = (Math.random()).toFixed(2); //random number between 0 and 1
+
+            this.moreFish.push(new MyAnimatedFish(this, this.bRatio, [this.r, this.g, this.b, 1.0], this.fishY, this.fishX, this.fishZ, this.period));
+        }
+
+        // this.fish2 = new MyAnimatedFish(this, 0.5, [0.75, 0.3, 0.4, 1.0], 4, 10, 5, 3);
+        // this.fish3 = new MyAnimatedFish(this, 0.35, [0.6, 0.6, 0.4, 1.0], 2.5, -5, 7, 6);
+        // this.fish4 = new MyAnimatedFish(this, 0.45, [1.0, 0.96, 0.34, 1.0], 3.5, 2, -3, 10);
 
         this.lastUpdate = 0;
 
         //Objects connected to MyInterface
-        this.displayAxis = true;
+        this.displayAxis = false;
         this.displayCylinder = false;
         this.displaySphere = false;
         this.displayMVObj = false;
@@ -195,9 +214,13 @@ export class MyScene extends CGFscene {
             this.movingObject.update(t - this.lastUpdate);
             this.movingFish.update(t - this.lastUpdate);
 
-            this.fish2.update(t - this.lastUpdate);
-            this.fish3.update(t - this.lastUpdate);
-            this.fish4.update(t - this.lastUpdate);
+            for(let i = 0; i < this.numAnimFish; i++){
+                this.moreFish[i].update(t - this.lastUpdate);
+            }
+
+            // this.fish2.update(t - this.lastUpdate);
+            // this.fish3.update(t - this.lastUpdate);
+            // this.fish4.update(t - this.lastUpdate);
 
             this.night = 0;
             if(this.selectedTexture == 4 || this.selectedTexture == 2)
@@ -319,9 +342,13 @@ export class MyScene extends CGFscene {
         this.pillar7.display();
         this.pillar8.display();
 
-        this.fish2.display();
-        this.fish3.display();
-        this.fish4.display();
+        for(let i = 0; i < this.numAnimFish; i++){
+            this.moreFish[i].display();
+        }
+
+        // this.fish2.display();
+        // this.fish3.display();
+        // this.fish4.display();
         
         // ---- END Primitive drawing section
     }

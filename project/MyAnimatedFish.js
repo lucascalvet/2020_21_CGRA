@@ -43,8 +43,6 @@ Object.freeze(TURNSTATES);
         this.scene.rotate(this.alpha, 0, 1, 0);
         this.object.display();
         this.scene.popMatrix();
-
-        console.log("POS x : " + this.x + "POS y : " + this.y + "POS z : " + this.z );
     }
 
     update(t){

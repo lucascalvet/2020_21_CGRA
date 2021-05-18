@@ -17,8 +17,8 @@ Ideias para escever nesta parte:
 For the 7th point of the Part B of the Project we implemented:
 
 - 7.1 - "Algas";
-- 7.5 - "MyAnimatedFish - Animação de outros peixes"; -> in progress
-- 7.6 - "Shader do Peixe Melhorado" -> in progress
+- 7.5 - "MyAnimatedFish - Animação de outros peixes";
+- 7.6 - "Shader do Peixe Melhorado" -> ?
 
 ## Screenshots
 ### 1 - MyFish
