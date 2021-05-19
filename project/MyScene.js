@@ -1,8 +1,5 @@
 import { CGFscene, CGFcamera, CGFaxis, CGFappearance, CGFtexture, CGFshader } from "../lib/CGF.js";
-import { MySphere } from "./MySphere.js";
-import { MyMovingObject } from "./MyMovingObject.js";
 import { MyCubeMap } from "./MyCubeMap.js";
-import { MyCylinder } from "./MyCylinder.js";
 import { MyPyramid } from "./MyPyramid.js";
 import { MyFish } from "./MyFish.js";
 import { MyMovingFish } from "./MyMovingFish.js"
@@ -35,15 +32,15 @@ export class MyScene extends CGFscene {
         this.gl.depthFunc(this.gl.LEQUAL);
 
         this.setUpdatePeriod(50);
+
+        this.defaultShader=new CGFshader(this.gl,"shaders/lightCustom.vert","../lib/CGF/shaders/Gouraud/textured/fragment.glsl");
+        this.defaultShader.setUniformsValues({isNight: this.night});
         
         this.enableTextures(true);
 
         //Initialize scene objects
         this.axis = new CGFaxis(this);
-        this.incompleteSphere = new MySphere(this, 16, 8);
     
-        this.movingObject = new MyMovingObject(this, new MyPyramid(this, 4, 1));
-
         this.texBackCube = new CGFtexture(this, 'images/test_cubemap/nz.png');
         this.texBottomCube = new CGFtexture(this, 'images/test_cubemap/ny.png');
         this.texFrontCube = new CGFtexture(this, 'images/test_cubemap/pz.png');
@@ -80,13 +77,6 @@ export class MyScene extends CGFscene {
         this.texUW2Top = new CGFtexture(this, 'images/part-b-images/underwater_cubemap_night/top.jpg');
    
         this.cubeMap = new MyCubeMap(this, this.texTopCube, this.texFrontCube, this.texRightCube, this.texBackCube, this.texLeftCube, this.texBottomCube);
-        
-        this.texTest = new CGFtexture(this, 'images/texture.jpg');
-        this.texEarth = new CGFtexture(this, 'images/earth.jpg');
-
-        this.cylinder = new MyCylinder(this, 16, 1);
-
-        this.sphere = new MySphere(this, 16, 16);
 
         this.defaultAppearance = new CGFappearance(this);
 		this.defaultAppearance.setAmbient(0.2, 0.4, 0.8, 1.0);
@@ -95,42 +85,18 @@ export class MyScene extends CGFscene {
         this.defaultAppearance.setEmission(0,0,0,1);
 		this.defaultAppearance.setShininess(120);
 
-		this.sphereAppearance = new CGFappearance(this);
-		this.sphereAppearance.setAmbient(0.3, 0.3, 0.3, 1);
-		this.sphereAppearance.setDiffuse(0.7, 0.7, 0.7, 1);
-		this.sphereAppearance.setSpecular(0.0, 0.0, 0.0, 1);
-		this.sphereAppearance.setShininess(120);
-
-        this.cylinderAppearance = new CGFappearance(this);
-        this.cylinderAppearance.setAmbient(0.3, 0.3, 0.3, 1);
-		this.cylinderAppearance.setDiffuse(0.7, 0.7, 0.7, 1);
-		this.cylinderAppearance.setSpecular(0.0, 0.0, 0.0, 1);
-		this.cylinderAppearance.setShininess(120);
-        this.cylinderAppearance.setTexture(this.texEarth);
-        this.cylinderAppearance.setTextureWrap('REPEAT', 'REPEAT');
-
-        this.sphereAppearance = new CGFappearance(this);
-        this.sphereAppearance.setAmbient(0.3, 0.3, 0.3, 1);
-		this.sphereAppearance.setDiffuse(0.7, 0.7, 0.7, 1);
-		this.sphereAppearance.setSpecular(0.0, 0.0, 0.0, 1);
-		this.sphereAppearance.setShininess(120);
-        this.sphereAppearance.setTexture(this.texEarth);
-        this.sphereAppearance.setTextureWrap('REPEAT', 'REPEAT');
-
-        this.body_shader = new CGFshader(this.gl, "shaders/body.vert", "shaders/body.frag");
-
         this.nestX = 1;
         this.nestZ = 1;
         this.nestRadius = 2;
 
         this.seaFloor = new MySeaFloor(this, 150, 50, 1, 10, this.nestX, this.nestZ, this.nestRadius);
 
-        this.rocks = new MyRockSet(this, 10, 10, 200, 50, this.nestX, this.nestZ, this.nestRadius);
+        this.rocks = new MyRockSet(this, 10, 10, 300, 50, this.nestX, this.nestZ, this.nestRadius);
 
         this.mainFish = new MyFish(this, 0.4, [1.0, 0.6863, 0.2510, 1.0]);
         this.movingFish = new MyMovingFish(this, this.mainFish, 3, 1, 0.25, this.rocks, this.nestX, this.nestZ, this.nestRadius);
 
-        this.algae = new MyAlgaeSet(this, 3, 5, 75, 50, this.nestX, this.nestZ, this.nestRadius);
+        this.algae = new MyAlgaeSet(this, 3, 5, 150, 50, this.nestX, this.nestZ, this.nestRadius);
 
         this.waterSurface = new MyWaterSurf(this, 200, 50, 10);
 
@@ -153,7 +119,7 @@ export class MyScene extends CGFscene {
 
             this.period = (Math.random() * (20 - 10) + 10).toFixed(2); //random number between 10 and 20 (secs)
 
-            this.bRatio = (Math.random() * (0.65 - 0.35) + 0.35).toFixed(2); //random number between 0.35 and 0.65
+            this.bRatio = (Math.random() * (0.55 - 0.35) + 0.35).toFixed(2); //random number between 0.35 and 0.55
 
             this.r = (Math.random()).toFixed(2); //random number between 0 and 1
             this.g = (Math.random()).toFixed(2); //random number between 0 and 1
@@ -167,9 +133,6 @@ export class MyScene extends CGFscene {
 
         //Objects connected to MyInterface
         this.displayAxis = false;
-        this.displayCylinder = false;
-        this.displaySphere = false;
-        this.displayMVObj = false;
         this.selectedTexture = 3;
         this.scaleFactor = 1;
         this.speedFactor = 1;
@@ -180,7 +143,8 @@ export class MyScene extends CGFscene {
 
         //Day Light
         this.lights[0].setPosition(15, 2, 5, 1);
-        this.lights[0].setDiffuse(1.0, 1.0, 1.0, 1.0); //1.0, 1.0, 1.0, 1.0
+        this.lights[0].setAmbient(1.0, 1.0, 1.0, 1.0);
+        this.lights[0].setDiffuse(1.0, 1.0, 1.0, 1.0);
         this.lights[0].enable();
         this.lights[0].update();
 
@@ -208,7 +172,6 @@ export class MyScene extends CGFscene {
         this.checkKeys();
 
         if(t > 0){
-            this.movingObject.update(t - this.lastUpdate);
             this.movingFish.update(t - this.lastUpdate);
 
             for(let i = 0; i < this.numAnimFish; i++){
@@ -220,6 +183,8 @@ export class MyScene extends CGFscene {
                 this.night = 1;
 
             this.waterSurface.update(t, this.night);
+
+            this.defaultShader.setUniformsValues({isNight : this.night});
 
             if(this.night == 1){
                 this.lights[0].disable()
@@ -239,39 +204,19 @@ export class MyScene extends CGFscene {
         // Clear image and depth buffer everytime we update the scene
         this.gl.viewport(0, 0, this.gl.canvas.width, this.gl.canvas.height);
         this.gl.clear(this.gl.COLOR_BUFFER_BIT | this.gl.DEPTH_BUFFER_BIT);
-        // Initialize Model-View matrix as identity (no transformation
+        // Initialize Model-View matrix as identity (no transformation)
         this.updateProjectionMatrix();
         this.loadIdentity();
         // Apply transformations corresponding to the camera position relative to the origin
         this.applyViewMatrix();
         
         this.defaultAppearance.apply();
+
         // Draw axis
         if (this.displayAxis)
             this.axis.display();
 
-        this.sphereAppearance.apply();
         // ---- BEGIN Primitive drawing section
-
-        //This sphere does not have defined texture coordinates
-        //this.incompleteSphere.display();
-
-        if (this.displayCylinder) {
-            this.cylinderAppearance.apply();
-            this.cylinder.display();
-        }
-
-        if (this.displaySphere) {
-            this.sphereAppearance.apply();
-            this.sphere.display();
-        }
-
-        if (this.displayMVObj) {
-            this.pushMatrix();
-            this.scale(this.scaleFactor, this.scaleFactor, this.scaleFactor);
-            this.movingObject.display();
-            this.popMatrix();
-        }
 
         if(this.selectedTexture == 0){ //test cubemap
             this.quadBKText = this.texBackCube;
@@ -350,35 +295,30 @@ export class MyScene extends CGFscene {
         if(this.gui.isKeyPressed("KeyW")){
             text += " W ";
             keysPressed = true;
-            this.movingObject.accelerate(0.5);
             this.movingFish.accelerate(0.5);
         }
 
         if(this.gui.isKeyPressed("KeyS")){
             text += " S ";
             keysPressed = true;
-            this.movingObject.accelerate(-0.5);
             this.movingFish.accelerate(-0.5);
         }
 
         if(this.gui.isKeyPressed("KeyA")){
             text += " A ";
             keysPressed = true;
-            this.movingObject.turn(Math.PI/16);
             this.movingFish.turn(Math.PI/16);
         }
 
         if(this.gui.isKeyPressed("KeyD")){
             text += " D ";
             keysPressed = true;
-            this.movingObject.turn(-Math.PI/16);
             this.movingFish.turn(-Math.PI/16);
         }
 
         if(this.gui.isKeyPressed("KeyR")){
             text += " R ";
             keysPressed = true;
-            this.movingObject.reset();
             this.movingFish.reset();
         }
 

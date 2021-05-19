@@ -1,4 +1,4 @@
-import { CGFobject, CGFappearance } from '../lib/CGF.js';
+import { CGFobject, CGFappearance, CGFshader } from '../lib/CGF.js';
 import { MyTriangle } from "./MyTriangle.js";
 import { MyTriangleBig } from "./MyTriangleBig.js";
 import { MySphere } from "./MySphere.js";
@@ -35,16 +35,19 @@ export class MyFish extends CGFobject {
 
         // Scales Texture Material
         this.scene.scales = new CGFappearance(this.scene);
-        this.scene.scales.setAmbient(0.1, 0.1, 0.1, 1);
+        this.scene.scales.setAmbient(0.5, 0.5, 0.5, 1);
         this.scene.scales.setDiffuse(0.9, 0.9, 0.9, 1);
         this.scene.scales.setSpecular(0.1, 0.1, 0.1, 1);
         this.scene.scales.setShininess(10.0);
         this.scene.scales.loadTexture('images/part-b-images/scales.png');
         this.scene.scales.setTextureWrap('REPEAT', 'REPEAT');
 
+        //Body Shader
+        this.body_shader = new CGFshader(this.scene.gl, "shaders/lightCustom.vert", "shaders/body.frag");
+
         // FishEye Texture Material
         this.scene.eye_tex = new CGFappearance(this.scene);
-        this.scene.eye_tex.setAmbient(0.1, 0.1, 0.1, 1);
+        this.scene.eye_tex.setAmbient(0.5, 0.5, 0.5, 1);
         this.scene.eye_tex.setDiffuse(0.9, 0.9, 0.9, 1);
         this.scene.eye_tex.setSpecular(0.1, 0.1, 0.1, 1);
         this.scene.eye_tex.setShininess(10.0);
@@ -66,10 +69,11 @@ export class MyFish extends CGFobject {
         this.scene.rotate(Math.PI/2, 0, 1, 0);
         //it puts the front of the fish in positive z
 
-        this.scene.body_shader.setUniformsValues({bodyHeadRatio : this.ratio , colorBody: this.body_color, isNight: this.scene.night});
+        //this.scene.body_shader.setUniformsValues({bodyHeadRatio : this.ratio , colorBody: this.body_color, isNight: this.scene.night});
+        this.body_shader.setUniformsValues({bodyHeadRatio : this.ratio , colorBody: this.body_color, isNight: this.scene.night});
 
         this.scene.scales.apply();
-        this.scene.setActiveShader(this.scene.body_shader);
+        this.scene.setActiveShader(this.body_shader);
         this.scene.pushMatrix();
         this.scene.scale(0.25, 0.18, 0.125); //0.25 porque o comprimento inicial do peixe era 2
         this.scene.body.display();
