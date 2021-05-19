@@ -19,7 +19,7 @@ void main() {
     vec4 color = vec4(0.0, 0.0, 0.0, 0.0);
 
     if(isNight == 0)
-        color = texture2D(uSampler, newTexCoords) - vec4(0.2, 0.2, 0.2, 0.0); //to darken
+        color = texture2D(uSampler, newTexCoords) - vec4(0.45, 0.45, 0.4, 0.0); //to darken
     else
         color = texture2D(uSampler2, newTexCoords);
 
