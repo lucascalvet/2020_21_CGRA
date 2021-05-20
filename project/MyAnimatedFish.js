@@ -11,10 +11,10 @@ Object.freeze(TURNSTATES);
  * @param scene - Reference to MyScene object
  */
  export class MyAnimatedFish extends MyMovingFish {
-    constructor(scene, bodyRatio, color, yHeight, xCenterMov, zCenterMov, PeriodMov) {
+    constructor(scene, bodyRatio, color, yHeight, xCenterMov, zCenterMov, PeriodMov, textureFish) {
 		super(scene);
 
-        this.init(new MyFish(scene, bodyRatio, color));
+        this.init(new MyFish(scene, bodyRatio, color, textureFish));
         this.y = yHeight;
     
         this.PMov = PeriodMov;

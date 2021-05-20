@@ -93,12 +93,31 @@ export class MyScene extends CGFscene {
 
         this.rocks = new MyRockSet(this, 10, 10, 300, 50, this.nestX, this.nestZ, this.nestRadius);
 
-        this.mainFish = new MyFish(this, 0.4, [1.0, 0.6863, 0.2510, 1.0]);
+        // FishEye Texture Material
+        this.eye_tex = new CGFappearance(this);
+        this.eye_tex.setAmbient(0.5, 0.5, 0.5, 1);
+        this.eye_tex.setDiffuse(0.9, 0.9, 0.9, 1);
+        this.eye_tex.setSpecular(0.1, 0.1, 0.1, 1);
+        this.eye_tex.setShininess(10.0);
+        this.eye_tex.loadTexture('images/part-b-images/fish_eye.png');
+        this.eye_tex.setTextureWrap('REPEAT', 'REPEAT');
+
+        this.mainFish = new MyFish(this, 0.4, [1.0, 0.6863, 0.2510, 1.0], 'images/part-b-images/scales.png');
         this.movingFish = new MyMovingFish(this, this.mainFish, 3, 1, 0.25, this.rocks, this.nestX, this.nestZ, this.nestRadius);
 
         this.algae = new MyAlgaeSet(this, 3, 5, 150, 50, this.nestX, this.nestZ, this.nestRadius);
 
         this.waterSurface = new MyWaterSurf(this, 200, 50, 10);
+
+        //Textura Pilares
+        this.PillarMaterial = new CGFappearance(this);
+        this.PillarMaterial.setAmbient(0.0, 0.0, 0.0, 1);
+        this.PillarMaterial.setDiffuse(0.0, 0.0, 0.0, 1);
+        this.PillarMaterial.setSpecular(0.0, 0.0, 0.0, 1);
+        this.PillarMaterial.setEmission(0.9, 0.9, 0.9, 1)
+        this.PillarMaterial.setShininess(10.0);
+        this.PillarMaterial.loadTexture('images/part-b-images/pillarWood.png');
+        this.PillarMaterial.setTextureWrap('REPEAT', 'REPEAT');
 
         this.pillar1 = new MyPillar(this, 5, 0, 0, 0.25, 12);
         this.pillar2 = new MyPillar(this, 5, 0, -3.5, 0.25, 12);
@@ -111,6 +130,13 @@ export class MyScene extends CGFscene {
 
         this.moreFish = [];
         this.numAnimFish = 4;
+
+        this.fishScales = [
+            'images/part-b-images/scales2.jpg', 
+            'images/part-b-images/scales3.jpg', //greyish sideway scales
+            'images/part-b-images/scales4.jpg',
+            'images/part-b-images/scales5.jpg'
+        ];
 
         for(let fish = 0; fish < this.numAnimFish; fish++){
             this.fishX = (Math.random() * 40 - 20); //random number between -20 and 20
@@ -125,7 +151,9 @@ export class MyScene extends CGFscene {
             this.g = (Math.random()).toFixed(2); //random number between 0 and 1
             this.b = (Math.random()).toFixed(2); //random number between 0 and 1
 
-            this.moreFish.push(new MyAnimatedFish(this, this.bRatio, [this.r, this.g, this.b, 1.0], this.fishY, this.fishX, this.fishZ, this.period));
+            this.scales = Math.floor(Math.random() * 4) //random integer number between 0 and 4
+
+            this.moreFish.push(new MyAnimatedFish(this, this.bRatio, [this.r, this.g, this.b, 1.0], this.fishY, this.fishX, this.fishZ, this.period, this.fishScales[this.scales]));
         }
 
 

@@ -9,10 +9,11 @@ import { MySphere } from "./MySphere.js";
  * @param scene - Reference to MyScene object
  */
 export class MyFish extends CGFobject {
-	constructor(scene, bodyRatio, color) {
+	constructor(scene, bodyRatio, color, texturePath) {
 		super(scene);
         this.ratio = bodyRatio;
         this.body_color = color;
+        this.texture = texturePath;
 
         this.alphaLeft = Math.PI/6; //Left Fin Angle
         this.alphaRight = Math.PI/6; //Right Fin Angle
@@ -34,25 +35,16 @@ export class MyFish extends CGFobject {
         this.scene.right_eye = new MySphere(this.scene, 16, 16);
 
         // Scales Texture Material
-        this.scene.scales = new CGFappearance(this.scene);
-        this.scene.scales.setAmbient(0.5, 0.5, 0.5, 1);
-        this.scene.scales.setDiffuse(0.9, 0.9, 0.9, 1);
-        this.scene.scales.setSpecular(0.1, 0.1, 0.1, 1);
-        this.scene.scales.setShininess(10.0);
-        this.scene.scales.loadTexture('images/part-b-images/scales.png');
-        this.scene.scales.setTextureWrap('REPEAT', 'REPEAT');
+        this.scales = new CGFappearance(this.scene);
+        this.scales.setAmbient(0.5, 0.5, 0.5, 1);
+        this.scales.setDiffuse(0.9, 0.9, 0.9, 1);
+        this.scales.setSpecular(0.1, 0.1, 0.1, 1);
+        this.scales.setShininess(10.0);
+        this.scales.loadTexture(this.texture);
+        this.scales.setTextureWrap('REPEAT', 'REPEAT');
 
         //Body Shader
         this.body_shader = new CGFshader(this.scene.gl, "shaders/lightCustom.vert", "shaders/body.frag");
-
-        // FishEye Texture Material
-        this.scene.eye_tex = new CGFappearance(this.scene);
-        this.scene.eye_tex.setAmbient(0.5, 0.5, 0.5, 1);
-        this.scene.eye_tex.setDiffuse(0.9, 0.9, 0.9, 1);
-        this.scene.eye_tex.setSpecular(0.1, 0.1, 0.1, 1);
-        this.scene.eye_tex.setShininess(10.0);
-        this.scene.eye_tex.loadTexture('images/part-b-images/fish_eye.png');
-        this.scene.eye_tex.setTextureWrap('REPEAT', 'REPEAT');
   
         //Fish Color Material
         this.fish_color = new CGFappearance(this.scene);
@@ -72,7 +64,7 @@ export class MyFish extends CGFobject {
         //this.scene.body_shader.setUniformsValues({bodyHeadRatio : this.ratio , colorBody: this.body_color, isNight: this.scene.night});
         this.body_shader.setUniformsValues({bodyHeadRatio : this.ratio , colorBody: this.body_color, isNight: this.scene.night});
 
-        this.scene.scales.apply();
+        this.scales.apply();
         this.scene.setActiveShader(this.body_shader);
         this.scene.pushMatrix();
         this.scene.scale(0.25, 0.18, 0.125); //0.25 porque o comprimento inicial do peixe era 2
