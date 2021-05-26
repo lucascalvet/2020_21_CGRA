@@ -1,4 +1,4 @@
-import { CGFscene, CGFcamera, CGFaxis, CGFappearance, CGFtexture, CGFshader } from "../lib/CGF.js";
+import { CGFscene, CGFaxis, CGFappearance, CGFtexture, CGFshader } from "../lib/CGF.js";
 import { MyCubeMap } from "./MyCubeMap.js";
 import { MyFish } from "./MyFish.js";
 import { MyMovingFish } from "./MyMovingFish.js"
