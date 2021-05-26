@@ -1,6 +1,14 @@
 # CGRA 2020/2021
 
 ## Group T03G05
+<br/>
+
+| Name                | Number    | E-Mail               |
+| ------------------- | --------- | -------------------- |
+| Ana Matilde Barra   | 201904795 | up201904795@fe.up.pt |
+| Lucas Calvet Santos | 201904517 | up201904517@fe.up.pt |
+
+<br/>
 
 ## Project Notes
 
@@ -11,7 +19,7 @@
 
 - We had to reflect for some time in order to define the best values for the 'randomness' of the algae and rock positions, but in the end we were able to find values that we are satisfied with;
 - After some difficulties in defining the "waterSurface" loop, we were also able to define the shader in a way that the loop doesn't appear to be "broken" and we are very happy with the end result;
-- We wanted to implement an "additional feature" of our own, so we ended up making a night-day option for the scene (controllable trough the interface), that influences the lighting of the scene, the cubemap and also the image used to represent the waterSurface.
+- We wanted to implement an "additional feature" of our own, so we ended up making a night-day option for the scene (controllable trough the interface - through the selection of the cubemap texture), that influences the lighting of the scene, the cubemap and also the image used to represent the waterSurface.
 
 For the 7th point (additional functionalities) we implemented:
 
@@ -22,6 +30,8 @@ For the 7th point (additional functionalities) we implemented:
 ### Textures and Images
 
 All the textures and images not provided by the teachers were either obtained by searching online for 'copyright free' images or by editing the ones that we received through the U.C.'s Moodle Page.
+
+<br/>
 
 ## Screenshots
 ### 1 - MyFish
