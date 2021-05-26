@@ -4,21 +4,24 @@
 
 ## Project Notes
 
-(add your main observations/remarks about your experiments here, in a bulleted list, and remove this line. Some examples below)
+### Part A of the Project:
+ - We had some difficulties while developing the Cylinder, especifically in the mapping of the textures. Eventually we were able to implement it after some time.
 
-- In exercise 1 we observed X
-- In exercise 2 we had difficulties in Y
+### Part B of the Project:
 
-Ideias para escever nesta parte: 
-- Falar das dificuldades em ter a WaterSurf sem o "loop quebrado"
-- Arranjar os melhores valores para a aleatoriedade das rochas e das algas
-- Falar da maneira como temos a opção de noite e dia na nossa cena
+- We had to reflect for some time in order to define the best values for the 'randomness' of the algae and rock positions, but in the end we were able to find values that we are satisfied with;
+- After some difficulties in defining the "waterSurface" loop, we were also able to define the shader in a way that the loop doesn't appear to be "broken" and we are very happy with the end result;
+- We wanted to implement some "additional features" of our own, so we ended up making a night-day option for the scene (controllable trough the interface), that influences the lighting of the scene, the cubemap and also the image used to represent the waterSurface.
 
-For the 7th point of the Part B of the Project we implemented:
+For the 7th point (additional functionalities) we implemented:
 
 - 7.1 - "Algas";
 - 7.5 - "MyAnimatedFish - Animação de outros peixes";
 - 7.6 - "Shader do Peixe Melhorado".
+
+### Textures and Images
+
+All the textures and images not provided by the teachers were either obtained by searching online for 'copyright free' images or by editing the ones that we received through the U.C.'s Moodle Page.
 
 ## Screenshots
 ### 1 - MyFish
@@ -78,3 +81,18 @@ For the 7th point of the Part B of the Project we implemented:
 
 
 ### 8 - Addicional Functionalities
+![Screenshot 8a](screenshots/proj-t03g05-8a.png)
+
+![Screenshot 8b](screenshots/proj-t03g05-8b.png)
+
+![Screenshot 8c](screenshots/proj-t03g05-8c.png)
+
+![Screenshot 8d](screenshots/proj-t03g05-8d.png)
+
+![Screenshot 8e](screenshots/proj-t03g05-8e.png)
+
+![Screenshot 8f](screenshots/proj-t03g05-8f.png)
+
+![Screenshot 8g](screenshots/proj-t03g05-8g.png)
+
+![Screenshot 8h](screenshots/proj-t03g05-8h.png)
