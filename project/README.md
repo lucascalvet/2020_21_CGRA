@@ -11,7 +11,7 @@
 
 - We had to reflect for some time in order to define the best values for the 'randomness' of the algae and rock positions, but in the end we were able to find values that we are satisfied with;
 - After some difficulties in defining the "waterSurface" loop, we were also able to define the shader in a way that the loop doesn't appear to be "broken" and we are very happy with the end result;
-- We wanted to implement some "additional features" of our own, so we ended up making a night-day option for the scene (controllable trough the interface), that influences the lighting of the scene, the cubemap and also the image used to represent the waterSurface.
+- We wanted to implement an "additional feature" of our own, so we ended up making a night-day option for the scene (controllable trough the interface), that influences the lighting of the scene, the cubemap and also the image used to represent the waterSurface.
 
 For the 7th point (additional functionalities) we implemented:
 

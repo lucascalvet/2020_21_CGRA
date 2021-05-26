@@ -22,8 +22,6 @@ export class MySeaFloor extends CGFobject {
 		this.floorshader = new CGFshader(this.scene.gl, "shaders/seafloor.vert", "shaders/seafloor.frag");
 		this.floorshader.setUniformsValues({ uSampler2: 1, uSampler3: 2, maxHeight: maxHeight, nestX: nestX, nestZ: nestZ, nestRadius: nestRadius});
 		this.shellshader = new CGFshader(this.scene.gl, "shaders/seashell.vert", "shaders/seashell.frag");
-
-		//this.floorshader.setUniformsValues({ uSampler2: 1, uSampler3: 2, maxHeight: maxHeight, length: length, nestX: nestX, nestZ: nestZ, nestRadius: nestRadius});
 		
 		// Textures
 		this.sandTexture = new CGFtexture(this.scene, 'images/part-b-images/sand.png');
